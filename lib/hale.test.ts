@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { appealAmountsOk } from "./appeal";
+import { appealAmountsOk, appealHasGender } from "./appeal";
 import { decodeCase, encodeCase } from "./caseLink";
 import { computeFunding } from "./funding";
 import { LANDMARKS, matchLandmark } from "./locations";
@@ -41,6 +41,11 @@ describe("Test 2", () => {
   it("rejects amounts the AI invented", () => {
     expect(appealAmountsOk("We need ₹6,000 of ₹8,000.", [8000, 2000, 6000])).toBe(true);
     expect(appealAmountsOk("We need ₹9,999.", [8000, 2000, 6000])).toBe(false);
+  });
+  it("catches a made-up gender in the appeal", () => {
+    expect(appealHasGender("She needs urgent care.")).toBe(true);
+    expect(appealHasGender("Help him stand again")).toBe(true);
+    expect(appealHasGender("This dog needs urgent care. Please share it.")).toBe(false);
   });
   it("case link round-trips", () => {
     const c = { card: { species: "dog", injury: "bleeding", location: "Govindpuri metro", urgency: "critical" as const }, clinic: "Demo Vet", estimate: 8000, contribution: 2000, appeal: "Help ₹6,000" };

@@ -1,4 +1,4 @@
-import { APPEAL_SYSTEM, appealAmountsOk, appealTemplate, appealUserMessage } from "@/lib/appeal";
+import { APPEAL_SYSTEM, appealAmountsOk, appealHasGender, appealTemplate, appealUserMessage } from "@/lib/appeal";
 import { AiError, aiErrorMessage, askForText } from "@/lib/claude";
 import { computeFunding } from "@/lib/funding";
 
@@ -35,6 +35,14 @@ export async function POST(req: Request) {
         ok: true,
         source: "template",
         notice: "The AI wrote an amount we didn't give it, so we used a plain appeal instead.",
+        appeal: appealTemplate(facts),
+      });
+    }
+    if (appealHasGender(text)) {
+      return Response.json({
+        ok: true,
+        source: "template",
+        notice: "The AI described the animal as male or female, which we don't know, so we used a plain appeal instead.",
         appeal: appealTemplate(facts),
       });
     }
