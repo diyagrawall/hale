@@ -68,6 +68,41 @@ describe("signed links", () => {
   });
 });
 
+describe("danger words people really use", () => {
+  const mustFlag = [
+    "dog was run over near Okhla, still alive",
+    "cat struggling to breathe near Saket",
+    "puppy having fits near Kalkaji",
+    "dog dragging his back legs near Nehru Place",
+    "cow lying motionless on the road near Okhla",
+    "dog with a deep wound on its head near Saket",
+    "dog is paralysed near Govindpuri",
+    "dog bitten badly by other dogs near Saket",
+    "dog has maggots in a wound near Okhla",
+    "dog ate something poisonous, foaming at the mouth",
+    "dog hit by car near Okhla",
+    "puppy unable to stand near Kalkaji",
+  ];
+  const mustNotFlag = ["healthy cat sleeping near Saket", "dog is limping near Saket", "help", "the dog fits in a small box"];
+  it("flags real danger reports", () => {
+    for (const t of mustFlag) expect(checkRedFlags(t).hit, t).toBe(true);
+  });
+  it("does not flag calm reports", () => {
+    for (const t of mustNotFlag) expect(checkRedFlags(t).hit, t).toBe(false);
+  });
+});
+
+describe("money as people write it", () => {
+  it("accepts Rs, INR, /- and .00", () => {
+    for (const v of ["₹8,000", "Rs. 8000/-", "INR 8000", "8000.00", " 8 000 "]) {
+      expect(computeFunding(v, "2000"), v).toMatchObject({ ok: true, gap: 6000 });
+    }
+  });
+  it("still rejects bad money", () => {
+    for (const v of ["8000.50", "8k", "abc", "-5", ""]) expect(computeFunding(v, "0").ok, v).toBe(false);
+  });
+});
+
 describe("vets across Delhi", () => {
   it("every landmark has an open vet within 8 km at noon and at 2am", () => {
     for (const id of ["dwarka", "rohini", "karolbagh", "laxminagar", "vasantkunj", "pitampura", "janakpuri", "hauzkhas"]) {

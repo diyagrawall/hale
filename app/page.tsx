@@ -27,6 +27,7 @@ export default function Home() {
   const [appeal, setAppeal] = useState("");
   const [appealNotice, setAppealNotice] = useState("");
   const [appealFromAi, setAppealFromAi] = useState(false);
+  const [appealReady, setAppealReady] = useState(false); // separate from the text so clearing the box does not hide it
   const [shareError, setShareError] = useState("");
   const [appealLoading, setAppealLoading] = useState(false);
 
@@ -38,6 +39,7 @@ export default function Home() {
       setFlags([]);
       setFunding(null);
       setAppeal("");
+      setAppealReady(false);
       setAiProblem(null);
       return;
     }
@@ -46,6 +48,7 @@ export default function Home() {
     setTriage(null);
     setFunding(null);
     setAppeal("");
+    setAppealReady(false);
     setAiProblem(null);
     setFlags(checkRedFlags(t).matched); // instant, plain code: shows before the AI answers
     setLoading(true);
@@ -69,6 +72,18 @@ export default function Home() {
   const card = triage?.status === "ready" ? triage.card : null;
   const vets = triage?.status === "ready" ? nearestOpenVets(triage.landmark, istMinutesNow()) : [];
 
+  // Any edit to the clinic or the numbers makes the old gap and appeal out of date, so clear them.
+  function edit(setter: (v: string) => void) {
+    return (e: { target: { value: string } }) => {
+      setter(e.target.value);
+      setFunding(null);
+      setAppeal("");
+      setAppealReady(false);
+      setAppealNotice("");
+      setShareError("");
+    };
+  }
+
   async function getFunding() {
     if (!card) return;
     setClinicErr("");
@@ -76,6 +91,7 @@ export default function Home() {
     setErrors(r.ok ? {} : r.errors);
     setFunding(null);
     setAppeal("");
+    setAppealReady(false);
     if (!clinic.trim()) setClinicErr("Enter the clinic's name.");
     if (!r.ok || !clinic.trim()) return;
     setFunding(r);
@@ -90,17 +106,26 @@ export default function Home() {
       const data = await res.json();
       if (data.ok) {
         setAppeal(data.appeal);
+        setAppealReady(true);
         setAppealFromAi(data.source === "ai");
         setAppealNotice(data.notice ?? "");
-      } else setAppealNotice(data.message);
+      } else {
+        setAppealReady(true);
+        setAppealNotice(`${data.message} Write a short appeal below.`);
+      }
     } catch {
+      setAppealReady(true);
       setAppealNotice("Couldn't draft the appeal. Write one below.");
     }
     setAppealLoading(false);
   }
 
   async function confirm() {
-    if (!card || !funding || !appeal.trim()) return;
+    if (!card || !funding) return;
+    if (!appeal.trim()) {
+      setShareError("The appeal is empty. Write a few lines above before confirming.");
+      return;
+    }
     setShareError("");
     try {
       const res = await fetch("/api/share", {
@@ -129,10 +154,12 @@ export default function Home() {
         <button onClick={report} disabled={loading}>{loading ? "Reading…" : "Report"}</button>
       </div>
 
-      {flags.length > 0 && (
+      {(flags.length > 0 || card?.urgency === "critical") && (
         <div className="alert" role="alert">
           <strong>Go to a vet now</strong>
-          Safety rule triggered by your words: {flags.join(", ")}.
+          {flags.length > 0
+            ? `Safety rule triggered by your words: ${flags.join(", ")}.`
+            : "The AI rated this critical from your description."}
         </div>
       )}
 
@@ -187,13 +214,13 @@ export default function Home() {
           <div className="panel">
             <h2>Fund the treatment</h2>
             <label htmlFor="clinic">Clinic name</label>
-            <input id="clinic" value={clinic} onChange={(e) => setClinic(e.target.value)} placeholder="Demo Vet 24x7 – Govindpuri" />
+            <input id="clinic" value={clinic} onChange={edit(setClinic)} placeholder="Demo Vet 24x7 – Govindpuri" />
             {clinicErr && <p className="error">{clinicErr}</p>}
             <label htmlFor="est">Clinic estimate (₹)</label>
-            <input id="est" inputMode="numeric" value={estimate} onChange={(e) => setEstimate(e.target.value)} placeholder="8000" />
+            <input id="est" inputMode="numeric" value={estimate} onChange={edit(setEstimate)} placeholder="8000" />
             {errors.estimate && <p className="error">{errors.estimate}</p>}
             <label htmlFor="con">NGO contribution (₹)</label>
-            <input id="con" inputMode="numeric" value={contribution} onChange={(e) => setContribution(e.target.value)} placeholder="2000" />
+            <input id="con" inputMode="numeric" value={contribution} onChange={edit(setContribution)} placeholder="2000" />
             {errors.contribution && <p className="error">{errors.contribution}</p>}
             {errors.form && <p className="error">{errors.form}</p>}
             <button onClick={getFunding} disabled={appealLoading}>Calculate gap and draft appeal</button>
@@ -203,7 +230,7 @@ export default function Home() {
                 <p className="big">Funding gap: {formatRupees(funding.gap)}</p>
                 {appealLoading && <p className="muted">Drafting appeal…</p>}
                 {appealNotice && <p className="notice">{appealNotice}</p>}
-                {appeal && (
+                {appealReady && (
                   <>
                     <label htmlFor="appeal">{appealFromAi ? "Appeal (AI draft: check it before sharing, you can edit)" : "Appeal (plain template, not AI: you can edit)"}</label>
                     <textarea id="appeal" rows={6} value={appeal} onChange={(e) => setAppeal(e.target.value)} />

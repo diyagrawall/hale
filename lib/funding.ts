@@ -10,7 +10,9 @@ export type FundingResult =
   | { ok: false; errors: FundingErrors };
 
 function parse(raw: string | number): { ok: true; value: number } | { ok: false; kind: "empty" | "negative" | "invalid" } {
-  const s = String(raw ?? "").trim().replace(/[₹,\s]/g, "");
+  // Accept how people really write money: "₹8,000", "Rs. 8000/-", "INR 8000", "8000.00".
+  let s = String(raw ?? "").trim().replace(/rs\.?|inr|₹|\/-|,|\s/gi, "");
+  s = s.replace(/^(-?\d+)\.0+$/, "$1");
   if (s === "") return { ok: false, kind: "empty" };
   if (/^-\d+(\.\d+)?$/.test(s)) return { ok: false, kind: "negative" };
   if (!/^\d+$/.test(s) || Number(s) > 10_000_000) return { ok: false, kind: "invalid" };
