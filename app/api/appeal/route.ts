@@ -1,4 +1,4 @@
-import { APPEAL_SYSTEM, appealAmountsOk, appealHasGender, appealTemplate, appealUserMessage } from "@/lib/appeal";
+import { APPEAL_SYSTEM, appealAmountsOk, cleanAppeal, appealHasGender, appealTemplate, appealUserMessage } from "@/lib/appeal";
 import { AiError, aiErrorMessage, askForText } from "@/lib/claude";
 import { computeFunding } from "@/lib/funding";
 
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
   };
 
   try {
-    const text = await askForText({ system: APPEAL_SYSTEM, user: appealUserMessage(facts) });
+    const text = cleanAppeal(await askForText({ system: APPEAL_SYSTEM, user: appealUserMessage(facts) }));
     if (!appealAmountsOk(text, [facts.estimate, facts.contribution, facts.gap])) {
       return Response.json({
         ok: true,

@@ -141,7 +141,12 @@ export default function Home() {
       {triage?.status === "needs_info" && (
         <div className="panel">
           <h2>We need a bit more</h2>
-          {triage.missing.includes("what") && <p>What happened to the animal? (for example: bleeding, can&apos;t walk)</p>}
+          {triage.missing.includes("what") && (
+            <p>
+              What happened to the animal? (for example: bleeding, can&apos;t walk) Hale is for injured or sick animals, so if
+              this one looks fine, there is nothing to report.
+            </p>
+          )}
           {triage.missing.includes("where") && (
             <p>
               {triage.heardLocation

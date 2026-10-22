@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hale",
-  description: "Report an injured stray and find an open vet.",
+  title: "Hale: injured stray triage and funding",
+  description: "Report an injured stray in one message, see how urgent it is, find open vets nearby and turn the clinic estimate into a funding page.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

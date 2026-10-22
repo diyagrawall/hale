@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { appealAmountsOk, appealHasGender } from "./appeal";
+import { appealAmountsOk, appealHasGender, cleanAppeal } from "./appeal";
 import { decodeCase, encodeCase } from "./caseLink";
 import { computeFunding } from "./funding";
 import { LANDMARKS, matchLandmark } from "./locations";
@@ -46,6 +46,10 @@ describe("Test 2", () => {
     expect(appealHasGender("She needs urgent care.")).toBe(true);
     expect(appealHasGender("Help him stand again")).toBe(true);
     expect(appealHasGender("This dog needs urgent care. Please share it.")).toBe(false);
+  });
+  it("strips markdown from the appeal", () => {
+    expect(cleanAppeal("**Urgent: A Dog Needs Help**\n\n- It needs ₹6,000\n# Thanks")).toBe("Urgent: A Dog Needs Help\n\nIt needs ₹6,000\nThanks");
+    expect(cleanAppeal("Plain text stays the same.")).toBe("Plain text stays the same.");
   });
   it("case link round-trips", () => {
     const c = { card: { species: "dog", injury: "bleeding", location: "Govindpuri metro", urgency: "critical" as const }, clinic: "Demo Vet", estimate: 8000, contribution: 2000, appeal: "Help ₹6,000" };

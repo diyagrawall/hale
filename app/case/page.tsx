@@ -4,6 +4,8 @@ import { decodeCase } from "@/lib/caseLink";
 import { verify } from "@/lib/sign";
 import { computeFunding, formatRupees } from "@/lib/funding";
 
+export const metadata = { title: "Hale case: funding page" };
+
 type Params = Promise<{ d?: string | string[] }>;
 
 export default function CasePage({ searchParams }: { searchParams: Params }) {
