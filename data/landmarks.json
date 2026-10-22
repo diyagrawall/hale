@@ -1,0 +1,379 @@
+[
+  {
+    "id": "govindpuri",
+    "name": "Govindpuri metro",
+    "lat": 28.544,
+    "lng": 77.264,
+    "aliases": [
+      "govindpuri",
+      "govind puri"
+    ]
+  },
+  {
+    "id": "kalkaji",
+    "name": "Kalkaji",
+    "lat": 28.549,
+    "lng": 77.259,
+    "aliases": [
+      "kalkaji",
+      "kalka ji"
+    ]
+  },
+  {
+    "id": "nehruplace",
+    "name": "Nehru Place",
+    "lat": 28.548,
+    "lng": 77.251,
+    "aliases": [
+      "nehru place"
+    ]
+  },
+  {
+    "id": "okhla",
+    "name": "Okhla",
+    "lat": 28.557,
+    "lng": 77.275,
+    "aliases": [
+      "okhla"
+    ]
+  },
+  {
+    "id": "saket",
+    "name": "Saket",
+    "lat": 28.5245,
+    "lng": 77.21,
+    "aliases": [
+      "saket"
+    ]
+  },
+  {
+    "id": "lajpatnagar",
+    "name": "Lajpat Nagar",
+    "lat": 28.57,
+    "lng": 77.243,
+    "aliases": [
+      "lajpat nagar",
+      "lajpat"
+    ]
+  },
+  {
+    "id": "connaughtplace",
+    "name": "Connaught Place",
+    "lat": 28.6315,
+    "lng": 77.2167,
+    "aliases": [
+      "connaught place",
+      "cp metro",
+      "rajiv chowk"
+    ]
+  },
+  {
+    "id": "indiagate",
+    "name": "India Gate",
+    "lat": 28.6129,
+    "lng": 77.2295,
+    "aliases": [
+      "india gate"
+    ]
+  },
+  {
+    "id": "karolbagh",
+    "name": "Karol Bagh",
+    "lat": 28.6519,
+    "lng": 77.1909,
+    "aliases": [
+      "karol bagh"
+    ]
+  },
+  {
+    "id": "hauzkhas",
+    "name": "Hauz Khas",
+    "lat": 28.5494,
+    "lng": 77.2001,
+    "aliases": [
+      "hauz khas",
+      "hauzkhas"
+    ]
+  },
+  {
+    "id": "greenpark",
+    "name": "Green Park",
+    "lat": 28.5594,
+    "lng": 77.2063,
+    "aliases": [
+      "green park"
+    ]
+  },
+  {
+    "id": "gk",
+    "name": "Greater Kailash",
+    "lat": 28.5483,
+    "lng": 77.238,
+    "aliases": [
+      "greater kailash",
+      "gk 1",
+      "gk 2",
+      "gk1",
+      "gk2"
+    ]
+  },
+  {
+    "id": "crpark",
+    "name": "Chittaranjan Park",
+    "lat": 28.538,
+    "lng": 77.248,
+    "aliases": [
+      "chittaranjan park",
+      "cr park"
+    ]
+  },
+  {
+    "id": "malviyanagar",
+    "name": "Malviya Nagar",
+    "lat": 28.5355,
+    "lng": 77.209,
+    "aliases": [
+      "malviya nagar"
+    ]
+  },
+  {
+    "id": "vasantkunj",
+    "name": "Vasant Kunj",
+    "lat": 28.52,
+    "lng": 77.158,
+    "aliases": [
+      "vasant kunj"
+    ]
+  },
+  {
+    "id": "dwarka",
+    "name": "Dwarka",
+    "lat": 28.5921,
+    "lng": 77.046,
+    "aliases": [
+      "dwarka"
+    ]
+  },
+  {
+    "id": "rohini",
+    "name": "Rohini",
+    "lat": 28.738,
+    "lng": 77.0822,
+    "aliases": [
+      "rohini"
+    ]
+  },
+  {
+    "id": "janakpuri",
+    "name": "Janakpuri",
+    "lat": 28.6219,
+    "lng": 77.0878,
+    "aliases": [
+      "janakpuri"
+    ]
+  },
+  {
+    "id": "rajouri",
+    "name": "Rajouri Garden",
+    "lat": 28.6492,
+    "lng": 77.122,
+    "aliases": [
+      "rajouri garden"
+    ]
+  },
+  {
+    "id": "punjabibagh",
+    "name": "Punjabi Bagh",
+    "lat": 28.6683,
+    "lng": 77.1317,
+    "aliases": [
+      "punjabi bagh"
+    ]
+  },
+  {
+    "id": "pitampura",
+    "name": "Pitampura",
+    "lat": 28.698,
+    "lng": 77.131,
+    "aliases": [
+      "pitampura"
+    ]
+  },
+  {
+    "id": "laxminagar",
+    "name": "Laxmi Nagar",
+    "lat": 28.6304,
+    "lng": 77.2776,
+    "aliases": [
+      "laxmi nagar"
+    ]
+  },
+  {
+    "id": "preetvihar",
+    "name": "Preet Vihar",
+    "lat": 28.6417,
+    "lng": 77.295,
+    "aliases": [
+      "preet vihar"
+    ]
+  },
+  {
+    "id": "mayurvihar",
+    "name": "Mayur Vihar",
+    "lat": 28.6086,
+    "lng": 77.2943,
+    "aliases": [
+      "mayur vihar"
+    ]
+  },
+  {
+    "id": "saritavihar",
+    "name": "Sarita Vihar",
+    "lat": 28.529,
+    "lng": 77.29,
+    "aliases": [
+      "sarita vihar"
+    ]
+  },
+  {
+    "id": "jasola",
+    "name": "Jasola",
+    "lat": 28.54,
+    "lng": 77.291,
+    "aliases": [
+      "jasola"
+    ]
+  },
+  {
+    "id": "tughlakabad",
+    "name": "Tughlakabad",
+    "lat": 28.51,
+    "lng": 77.263,
+    "aliases": [
+      "tughlakabad",
+      "tughlakabad extension"
+    ]
+  },
+  {
+    "id": "badarpur",
+    "name": "Badarpur",
+    "lat": 28.493,
+    "lng": 77.304,
+    "aliases": [
+      "badarpur"
+    ]
+  },
+  {
+    "id": "chandnichowk",
+    "name": "Chandni Chowk",
+    "lat": 28.6506,
+    "lng": 77.2303,
+    "aliases": [
+      "chandni chowk"
+    ]
+  },
+  {
+    "id": "olddelhi",
+    "name": "Old Delhi Railway Station",
+    "lat": 28.661,
+    "lng": 77.2278,
+    "aliases": [
+      "old delhi railway station",
+      "old delhi station"
+    ]
+  },
+  {
+    "id": "newdelhi",
+    "name": "New Delhi Railway Station",
+    "lat": 28.6428,
+    "lng": 77.2194,
+    "aliases": [
+      "new delhi railway station",
+      "new delhi station"
+    ]
+  },
+  {
+    "id": "mehrauli",
+    "name": "Mehrauli",
+    "lat": 28.52,
+    "lng": 77.185,
+    "aliases": [
+      "mehrauli"
+    ]
+  },
+  {
+    "id": "munirka",
+    "name": "Munirka",
+    "lat": 28.557,
+    "lng": 77.174,
+    "aliases": [
+      "munirka"
+    ]
+  },
+  {
+    "id": "jnu",
+    "name": "JNU",
+    "lat": 28.5402,
+    "lng": 77.1662,
+    "aliases": [
+      "jnu",
+      "jawaharlal nehru university"
+    ]
+  },
+  {
+    "id": "aiims",
+    "name": "AIIMS",
+    "lat": 28.5672,
+    "lng": 77.21,
+    "aliases": [
+      "aiims"
+    ]
+  },
+  {
+    "id": "nizamuddin",
+    "name": "Nizamuddin",
+    "lat": 28.588,
+    "lng": 77.251,
+    "aliases": [
+      "nizamuddin"
+    ]
+  },
+  {
+    "id": "lodhiroad",
+    "name": "Lodhi Road",
+    "lat": 28.5918,
+    "lng": 77.2273,
+    "aliases": [
+      "lodhi road",
+      "lodi road"
+    ]
+  },
+  {
+    "id": "southex",
+    "name": "South Extension",
+    "lat": 28.57,
+    "lng": 77.219,
+    "aliases": [
+      "south extension",
+      "south ex"
+    ]
+  },
+  {
+    "id": "safdarjung",
+    "name": "Safdarjung",
+    "lat": 28.57,
+    "lng": 77.206,
+    "aliases": [
+      "safdarjung"
+    ]
+  },
+  {
+    "id": "sriniwaspuri",
+    "name": "Sriniwaspuri",
+    "lat": 28.57,
+    "lng": 77.253,
+    "aliases": [
+      "sriniwaspuri"
+    ]
+  }
+]

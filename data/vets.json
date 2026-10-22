@@ -1,0 +1,138 @@
+[
+  {
+    "id": "v1",
+    "name": "Demo Vet 24x7 – Govindpuri",
+    "area": "Govindpuri",
+    "lat": 28.544,
+    "lng": 77.267,
+    "hours": "24h"
+  },
+  {
+    "id": "v2",
+    "name": "Demo Animal Emergency – Kalkaji",
+    "area": "Kalkaji",
+    "lat": 28.548,
+    "lng": 77.26,
+    "hours": "24h"
+  },
+  {
+    "id": "v3",
+    "name": "Demo Pet Hospital – Nehru Place",
+    "area": "Nehru Place",
+    "lat": 28.548,
+    "lng": 77.252,
+    "hours": "24h"
+  },
+  {
+    "id": "v4",
+    "name": "Demo Vet Care – Okhla",
+    "area": "Okhla",
+    "lat": 28.556,
+    "lng": 77.274,
+    "hours": "09:00-21:00"
+  },
+  {
+    "id": "v5",
+    "name": "Demo Vet Clinic – Saket",
+    "area": "Saket",
+    "lat": 28.5245,
+    "lng": 77.2066,
+    "hours": "10:00-20:00"
+  },
+  {
+    "id": "v6",
+    "name": "Demo Animal Care – Lajpat Nagar",
+    "area": "Lajpat Nagar",
+    "lat": 28.57,
+    "lng": 77.243,
+    "hours": "09:00-18:00"
+  },
+  {
+    "id": "v7",
+    "name": "Demo Vet 24x7 – Dwarka",
+    "area": "Dwarka",
+    "lat": 28.59,
+    "lng": 77.048,
+    "hours": "24h"
+  },
+  {
+    "id": "v8",
+    "name": "Demo Pet Clinic – Janakpuri",
+    "area": "Janakpuri",
+    "lat": 28.621,
+    "lng": 77.09,
+    "hours": "09:00-21:00"
+  },
+  {
+    "id": "v9",
+    "name": "Demo Animal Emergency – Rajouri Garden",
+    "area": "Rajouri Garden",
+    "lat": 28.649,
+    "lng": 77.123,
+    "hours": "24h"
+  },
+  {
+    "id": "v10",
+    "name": "Demo Vet Care – Rohini",
+    "area": "Rohini",
+    "lat": 28.736,
+    "lng": 77.085,
+    "hours": "24h"
+  },
+  {
+    "id": "v11",
+    "name": "Demo Pet Hospital – Pitampura",
+    "area": "Pitampura",
+    "lat": 28.699,
+    "lng": 77.132,
+    "hours": "10:00-20:00"
+  },
+  {
+    "id": "v12",
+    "name": "Demo Vet 24x7 – Karol Bagh",
+    "area": "Karol Bagh",
+    "lat": 28.651,
+    "lng": 77.192,
+    "hours": "24h"
+  },
+  {
+    "id": "v13",
+    "name": "Demo Animal Care – Connaught Place",
+    "area": "Connaught Place",
+    "lat": 28.632,
+    "lng": 77.218,
+    "hours": "09:00-19:00"
+  },
+  {
+    "id": "v14",
+    "name": "Demo Vet Clinic – Laxmi Nagar",
+    "area": "Laxmi Nagar",
+    "lat": 28.631,
+    "lng": 77.277,
+    "hours": "24h"
+  },
+  {
+    "id": "v15",
+    "name": "Demo Vet Care – Mayur Vihar",
+    "area": "Mayur Vihar",
+    "lat": 28.609,
+    "lng": 77.295,
+    "hours": "09:00-21:00"
+  },
+  {
+    "id": "v16",
+    "name": "Demo Animal Emergency – Vasant Kunj",
+    "area": "Vasant Kunj",
+    "lat": 28.521,
+    "lng": 77.159,
+    "hours": "24h"
+  },
+  {
+    "id": "v17",
+    "name": "Demo Pet Clinic – Hauz Khas",
+    "area": "Hauz Khas",
+    "lat": 28.55,
+    "lng": 77.201,
+    "hours": "20:00-04:00"
+  }
+]
