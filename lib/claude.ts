@@ -27,6 +27,12 @@ export function aiErrorMessage(reason: AiFailure): string {
 }
 
 type Message = { role: string; content: string | null; tool_calls?: { function: { arguments: string } }[] };
+type UserContent = string | { type: string; text?: string; image_url?: { url: string } }[];
+
+/** Plain text, or text plus an optional photo (a small JPEG data URL). */
+function userContent(text: string, image?: string): UserContent {
+  return image ? [{ type: "text", text }, { type: "image_url", image_url: { url: image } }] : text;
+}
 
 async function chat(body: Record<string, unknown>): Promise<Message> {
   const apiKey = process.env.OPENROUTER_API_KEY;
@@ -58,13 +64,14 @@ async function chat(body: Record<string, unknown>): Promise<Message> {
 export async function askForJson(opts: {
   system: string;
   user: string;
+  image?: string;
   toolName: string;
   schema: Record<string, unknown>;
 }): Promise<unknown> {
   const msg = await chat({
     messages: [
       { role: "system", content: opts.system },
-      { role: "user", content: opts.user },
+      { role: "user", content: userContent(opts.user, opts.image) },
     ],
     tools: [{ type: "function", function: { name: opts.toolName, description: "Record the extracted facts.", parameters: opts.schema } }],
     tool_choice: { type: "function", function: { name: opts.toolName } },
@@ -76,11 +83,11 @@ export async function askForJson(opts: {
   }
 }
 
-export async function askForText(opts: { system: string; user: string }): Promise<string> {
+export async function askForText(opts: { system: string; user: string; image?: string }): Promise<string> {
   const msg = await chat({
     messages: [
       { role: "system", content: opts.system },
-      { role: "user", content: opts.user },
+      { role: "user", content: userContent(opts.user, opts.image) },
     ],
   });
   const text = (msg.content ?? "").trim();

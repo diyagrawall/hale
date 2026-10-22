@@ -1,7 +1,7 @@
 import vets from "../data/vets.json";
 import type { Vet, VetWithDistance } from "./types";
 
-export const VETS: Vet[] = vets;
+export const VETS: Vet[] = vets as Vet[];
 
 /** Minutes since midnight in Indian time. */
 export function istMinutesNow(now: Date = new Date()): number {

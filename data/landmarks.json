@@ -375,5 +375,116 @@
     "aliases": [
       "sriniwaspuri"
     ]
+  },
+  {
+    "id": "baner",
+    "name": "Baner",
+    "lat": 18.559,
+    "lng": 73.7868,
+    "aliases": [
+      "baner"
+    ]
+  },
+  {
+    "id": "balewadi",
+    "name": "Balewadi Phata",
+    "lat": 18.5779,
+    "lng": 73.7708,
+    "aliases": [
+      "balewadi",
+      "balewadi phata"
+    ]
+  },
+  {
+    "id": "aundh",
+    "name": "Aundh",
+    "lat": 18.558,
+    "lng": 73.8075,
+    "aliases": [
+      "aundh"
+    ]
+  },
+  {
+    "id": "kothrud",
+    "name": "Kothrud",
+    "lat": 18.5074,
+    "lng": 73.8077,
+    "aliases": [
+      "kothrud"
+    ]
+  },
+  {
+    "id": "hadapsar",
+    "name": "Hadapsar",
+    "lat": 18.5089,
+    "lng": 73.926,
+    "aliases": [
+      "hadapsar"
+    ]
+  },
+  {
+    "id": "wakad",
+    "name": "Wakad",
+    "lat": 18.5975,
+    "lng": 73.7898,
+    "aliases": [
+      "wakad"
+    ]
+  },
+  {
+    "id": "koregaon",
+    "name": "Koregaon Park",
+    "lat": 18.5362,
+    "lng": 73.894,
+    "aliases": [
+      "koregaon park",
+      "koregaon"
+    ]
+  },
+  {
+    "id": "viman",
+    "name": "Viman Nagar",
+    "lat": 18.5679,
+    "lng": 73.9143,
+    "aliases": [
+      "viman nagar"
+    ]
+  },
+  {
+    "id": "shivajinagar",
+    "name": "Shivajinagar",
+    "lat": 18.5308,
+    "lng": 73.8475,
+    "aliases": [
+      "shivajinagar",
+      "shivaji nagar"
+    ]
+  },
+  {
+    "id": "pashan",
+    "name": "Pashan",
+    "lat": 18.5413,
+    "lng": 73.7922,
+    "aliases": [
+      "pashan"
+    ]
+  },
+  {
+    "id": "bavdhan",
+    "name": "Bavdhan",
+    "lat": 18.5113,
+    "lng": 73.7788,
+    "aliases": [
+      "bavdhan"
+    ]
+  },
+  {
+    "id": "kalyani",
+    "name": "Kalyani Nagar",
+    "lat": 18.5463,
+    "lng": 73.9028,
+    "aliases": [
+      "kalyani nagar"
+    ]
   }
 ]

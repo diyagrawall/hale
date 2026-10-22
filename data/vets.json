@@ -134,5 +134,77 @@
     "lat": 28.55,
     "lng": 77.201,
     "hours": "20:00-04:00"
+  },
+  {
+    "id": "p1",
+    "name": "Sahyadri Animal Clinic",
+    "area": "Pashan",
+    "lat": 18.5413,
+    "lng": 73.7922,
+    "hours": "24h",
+    "kind": "private",
+    "note": "Emergency, surgery, X-ray",
+    "price": "₹₹",
+    "city": "Pune"
+  },
+  {
+    "id": "p2",
+    "name": "Municipal Vet Dispensary",
+    "area": "Aundh",
+    "lat": 18.558,
+    "lng": 73.8075,
+    "hours": "09:00-20:00",
+    "kind": "government",
+    "note": "Consult ₹20–50, basic meds free",
+    "price": "₹",
+    "city": "Pune"
+  },
+  {
+    "id": "p3",
+    "name": "Karuna Animal Hospital",
+    "area": "Bavdhan",
+    "lat": 18.5113,
+    "lng": 73.7788,
+    "hours": "24h",
+    "kind": "ngo",
+    "note": "Strays treated free, pets ₹150 consult",
+    "price": "₹",
+    "city": "Pune"
+  },
+  {
+    "id": "p4",
+    "name": "Baner Pet Care",
+    "area": "Baner",
+    "lat": 18.559,
+    "lng": 73.7868,
+    "hours": "10:00-21:00",
+    "kind": "private",
+    "note": "Vaccines, check-ups, grooming",
+    "price": "₹₹",
+    "city": "Pune"
+  },
+  {
+    "id": "p5",
+    "name": "Hadapsar Vet Centre",
+    "area": "Hadapsar",
+    "lat": 18.5089,
+    "lng": 73.926,
+    "hours": "24h",
+    "kind": "private",
+    "note": "Emergency and ICU",
+    "price": "₹₹₹",
+    "city": "Pune"
+  },
+  {
+    "id": "p6",
+    "name": "Kothrud Animal Clinic",
+    "area": "Kothrud",
+    "lat": 18.5074,
+    "lng": 73.8077,
+    "hours": "09:00-19:00",
+    "kind": "private",
+    "note": "General care, low-cost vaccines",
+    "price": "₹",
+    "city": "Pune"
   }
 ]
