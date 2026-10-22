@@ -40,15 +40,36 @@ These were run by hand in the browser with the real AI, and the plain-code rules
 
 *Not built yet (v2):* real clinic confirmation and payouts, live vet availability, bill photos, recovery tracking and donor updates.
 
-## Architecture: Input → AI → Logic → Action → Output
+## Architecture
 
-| Stage | What happens | Where in the code |
-| --- | --- | --- |
-| **Input** | The report text. The clinic name, estimate and NGO contribution. Seeded demo data: 40 Delhi places and 17 vets. | `app/page.tsx`, `data/landmarks.json`, `data/vets.json` |
-| **AI** | (A) Read the report into species, injury, location and urgency. (B) Draft the appeal wording. | `lib/claude.ts`, `app/api/triage/route.ts`, `app/api/appeal/route.ts` |
-| **Logic** (plain code) | Danger-word rule and urgency floor. "Needs more info" rule. Place matching, distance, open-now check, nearest 3 vets. All money maths. Appeal safety checks. Link signing. | `lib/redFlags.ts`, `lib/triage.ts`, `lib/locations.ts`, `lib/vets.ts`, `lib/funding.ts`, `lib/appeal.ts`, `lib/sign.ts`, `lib/caseLink.ts` |
-| **Action** | The person decides: which vet to go to, the numbers, edits to the appeal, and clicking "Clinic confirmed (simulated)". | `app/page.tsx`, `app/api/share/route.ts` |
-| **Output** | Red alert, case card, 3 vets, funding gap, appeal, and a signed shareable case page with a progress bar. | `app/page.tsx`, `app/case/page.tsx` |
+**Job to be done:** When a volunteer finds an injured stray (often at night, far from a clinic), turn one message into an urgency read and a list of open nearby vets, then turn the clinic's estimate into a funding page donors can trust, without hours of phoning NGOs, chasing vets and proving bills.
+
+**Current workflow:** Describe the animal in a WhatsApp group → phone clinics one by one to find one that is open → guess how urgent it is → get an estimate by phone → message NGOs and donors for money → screenshot bills later as proof. (Details in "Current workflow → future workflow" above.)
+
+**Future workflow:** Type one message → Hale flags danger, shows a case card and the 3 nearest open vets → the volunteer enters the clinic's estimate and the NGO's contribution → Hale shows the gap and drafts an appeal → the volunteer confirms and shares a signed case page. Real clinic confirmation and payouts are v2.
+
+**Input:** The report text; the clinic name, estimate and NGO contribution typed by the person; and seeded demo data (40 Delhi places, 17 vets). Code: `app/page.tsx`, `data/landmarks.json`, `data/vets.json`.
+
+**AI:** Claude (`anthropic/claude-haiku-5.5` via OpenRouter) does two jobs only: (A) read the report into species, injury, location and urgency, using `null` for anything not stated; (B) draft the appeal wording from the given facts and exact amounts. It never picks vets, does maths, or lowers urgency. Code: `lib/claude.ts`, `app/api/triage/route.ts`, `app/api/appeal/route.ts`.
+
+**Logic:** Plain, tested code does everything that must be exact: the danger-word rule and urgency floor, the "needs more info" rule, place matching, distance, open-now check and nearest 3 vets, all money (validation, gap, progress), appeal safety checks (no invented amounts, gender or markdown), and signing case links. Code: `lib/redFlags.ts`, `lib/triage.ts`, `lib/locations.ts`, `lib/vets.ts`, `lib/funding.ts`, `lib/appeal.ts`, `lib/sign.ts`, `lib/caseLink.ts`.
+
+**Action:** The person decides: which vet to go to, the numbers, edits to the appeal, and clicking "Clinic confirmed (simulated)". The server re-checks everything and signs the link. Code: `app/page.tsx`, `app/api/share/route.ts`.
+
+**Output:** A red "Go to a vet now" alert, the case card, 3 open demo vets, the funding gap, an editable appeal, and a signed shareable case page showing "₹X still needed" with a progress bar. Code: `app/page.tsx`, `app/case/page.tsx`.
+
+**What stays human:** Writing the report, choosing the vet, entering the estimate and contribution, reviewing and editing the appeal, confirming and sharing, and every real treatment decision (that belongs to a vet). See "What stays human" below.
+
+**Why these tools:** Next.js + TypeScript keeps the screen and the secret-holding server routes in one app that deploys to Vercel. Claude is fast and cheap enough for the 10-second goal and returns clean structured fields. Plain code handles safety and money so they stay exact and keep working when the AI is down. Signed links replace a database. See "Why these tools" below.
+
+**Failure cases:** A vague report asks for details instead of guessing; an unknown place is named back to the person; an AI error or timeout shows a clear message while the red-flag rule still works; AI mistakes are shown (original text beside the card, AI vs template label); bad estimates show a message and no page opens; an edited link shows "Case not found". The known gap: if both the danger-word rule and the AI miss an unusual phrase, no alert shows. See "Failure cases and how they are handled" below.
+
+```
+Input ──► AI ──► Logic ──► Action ──► Output
+report    read    safety    person    alert, card,
+numbers   draft   money     decides   vets, gap,
+demo data         vets      confirms  signed page
+```
 
 ## Where AI is used
 
