@@ -34,7 +34,7 @@ export default function Welcome() {
             </button>
           ))}
         </div>
-        <div style={{ flex: 1 }} />
+        <div style={{ flex: 1, minHeight: 32 }} />
         <div style={{ textAlign: "center", paddingBottom: 12 }} className="stack">
           <Link href="/rescue/sos" className="link" style={{ color: "var(--red)" }}><span className="dot" /> Animal hurt right now? Skip to SOS</Link>
           <button className="sub" onClick={() => choose("finder", true)} style={{ textDecoration: "underline" }}>Join as volunteer</button>
