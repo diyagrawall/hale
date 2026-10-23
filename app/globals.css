@@ -133,3 +133,5 @@ textarea.field { height: auto; padding: 14px 16px; resize: none; }
 @keyframes slideup { from { transform: translate(-50%, 100%); } to { transform: translate(-50%, 0); } }
 @keyframes shimmer { to { background-position: -200% 0; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; } .splash .beat path { stroke-dashoffset: 0; } .splash .tag, .splash .tag2 { opacity: 1; } }
+.wScene { margin-top: 12px; height: clamp(90px, calc(100dvh - 470px), 150px); overflow: hidden; border-radius: 22px; flex: none; }
+@media (max-height: 600px) { .wScene { display: none; } }
