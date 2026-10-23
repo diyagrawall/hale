@@ -4,6 +4,7 @@ import Icon from "./Icon";
 import { CASES, money, type CaseItem } from "@/lib/seed";
 import { Hero, Scene, kindFor, type Coat } from "./Art";
 import { useHale } from "@/lib/store";
+import PaymentFlow from "./Payment";
 
 const AMOUNTS = [200, 500, 1000];
 
@@ -12,13 +13,13 @@ export default function CaseSheet({ item, onClose }: { item: CaseItem; onClose: 
   const [amount, setAmount] = useState(500);
   const [custom, setCustom] = useState("");
   const [done, setDone] = useState<number | null>(null);
+  const [paying, setPaying] = useState(false);
   const raised = item.raised + (state.raised[item.id] ?? 0);
   const left = Math.max(item.goal - raised, 0);
   const pct = Math.min(100, Math.round((raised / item.goal) * 100));
   const value = custom ? Number(custom.replace(/\D/g, "")) || 0 : amount;
 
   function give() {
-    if (value < 10) return;
     update((s) => ({ ...s, raised: { ...s.raised, [item.id]: (s.raised[item.id] ?? 0) + value }, given: s.given + value, helped: s.helped + (s.raised[item.id] ? 0 : 1) }));
     setDone(value);
   }
@@ -57,7 +58,7 @@ export default function CaseSheet({ item, onClose }: { item: CaseItem; onClose: 
         {done ? (
           <div className="card" style={{ marginTop: 20, textAlign: "center" }}>
             <div className="h2">Thank you</div>
-            <p className="sub">Your {money(done)} (simulated) is added to {item.name}&apos;s fund. We will send you an update after treatment.</p>
+            <p className="sub">Your {money(done)} is added to {item.name}&apos;s fund. We will send you an update after treatment.</p>
             <button className="btn soft" onClick={onClose}>Done</button>
           </div>
         ) : (
@@ -68,11 +69,12 @@ export default function CaseSheet({ item, onClose }: { item: CaseItem; onClose: 
               ))}
               <input className="field" style={{ width: 120, height: 44 }} inputMode="numeric" placeholder="Other" value={custom} onChange={(e) => setCustom(e.target.value)} />
             </div>
-            <button className="btn primary" onClick={give} disabled={value < 10}>Give {money(value)} by UPI</button>
+            <button className="btn primary" onClick={() => setPaying(true)} disabled={value < 10}>Give {money(value)} by UPI</button>
             <div className="demoNote" style={{ textAlign: "center", marginTop: 8 }}>Demo: payments simulated</div>
           </div>
         )}
       </div>
+      {paying && <PaymentFlow amount={value} payee={item.clinic} note={`Treatment fund for ${item.name}`} onDone={give} onClose={() => setPaying(false)} />}
     </>
   );
 }

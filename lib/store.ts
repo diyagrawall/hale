@@ -27,6 +27,9 @@ export type Prefs = {
   offersPerWeek: number; quietFrom: string; quietTo: string; roundUp: boolean;
 };
 export type Booking = { id: string; ref: string; eventId: string; title: string; place: string; time: string; dateIso: string; qty: number; pets: string[]; tickets: number; fee: number; donation: number; total: number; at: string };
+export type Receipt = { id: string; ref: string; amount: number; payee: string; note: string; method: string; at: string };
+export type Order = { id: string; ref: string; petName: string; item: string; qty: number; itemTotal: number; delivery: number; donation: number; total: number; address: string; slot: string; method: "upi" | "cod"; stage: number; at: string };
+export type Appointment = { id: string; ref: string; mins: number; groomerId: string; groomer: string; petName: string; services: string[]; dateIso: string; time: string; subtotal: number; discount: number; total: number; paid: boolean; at: string };
 export type HaleState = {
   persona: Persona | null;
   volunteer: boolean;
@@ -40,6 +43,9 @@ export type HaleState = {
   sponsor: { amount: number; target: string; paused: boolean } | null;
   location: string;
   bookings: Booking[];
+  receipts: Receipt[];
+  orders: Order[];
+  appointments: Appointment[];
 };
 
 export const DEFAULT_STATE: HaleState = {
@@ -55,6 +61,9 @@ export const DEFAULT_STATE: HaleState = {
   sponsor: null,
   location: "Baner, Pune",
   bookings: [],
+  receipts: [],
+  orders: [],
+  appointments: [],
 };
 
 const KEY = "hale.v1";

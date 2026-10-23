@@ -109,6 +109,18 @@ textarea.field { height: auto; padding: 14px 16px; resize: none; }
 .splash .tag2 { opacity: 0; font-size: 14px; color: rgba(255, 255, 255, 0.75); margin-top: 4px; animation: fade 0.8s 2.3s forwards; }
 .splash .skip { position: absolute; bottom: 36px; left: 0; right: 0; font-size: 13px; color: rgba(255, 255, 255, 0.6); }
 .skel { background: linear-gradient(90deg, var(--bg2), #fff, var(--bg2)); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 14px; }
+.scrim.top { z-index: 80; }
+.sheet.top { z-index: 81; }
+.spin { width: 52px; height: 52px; border-radius: 50%; border: 5px solid var(--teal-soft); border-top-color: var(--teal); animation: spin 0.9s linear infinite; margin: 0 auto; }
+.keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0 6px; }
+.keypad button { height: 56px; border-radius: 16px; background: #fff; font-size: 22px; font-weight: 600; box-shadow: var(--shadow); display: grid; place-items: center; }
+.keypad button:active { background: var(--bg2); }
+.pindots { display: flex; justify-content: center; gap: 14px; margin: 10px 0 4px; }
+.pindots i { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--ink3); }
+.pindots i.on { background: var(--ink); border-color: var(--ink); }
+.appdot { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 20px; flex: none; }
+.upi-tile { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 4px; border-radius: 16px; background: #fff; box-shadow: var(--shadow); font-size: 13px; font-weight: 600; }
+@keyframes spin { to { transform: rotate(360deg); } }
 @keyframes ripple { from { transform: scale(0.9); opacity: 0.7; } to { transform: scale(1.55); opacity: 0; } }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
 @keyframes pop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }

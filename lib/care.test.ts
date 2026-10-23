@@ -4,7 +4,9 @@ import { cardOrder, ABOVE_FOLD } from "./persona";
 import { reasonTemplate, suitableFoods } from "./foods";
 import { buildNotifications } from "./notifications";
 import { rankVolunteers } from "./volunteers";
-import { FOODS, VOLUNTEERS } from "./seed";
+import { FOODS, GROOMERS, VOLUNTEERS } from "./seed";
+import { SLOT_TIMES, dayOptions, fmtTime, quoteGrooming, slotAvailable } from "./grooming";
+import { groupRef, makeRef, upiIdValid } from "./payments";
 import { DEFAULT_STATE, type Pet } from "./store";
 
 const NOW = new Date(2026, 9, 22, 12, 0, 0); // Thu 22 Oct 2026 (a Thursday)
@@ -148,5 +150,62 @@ describe("seats and tickets", () => {
     expect(list[0].title).toContain("Your ticket");
     expect(list[0].body).toContain("Tomorrow");
     expect(buildNotifications([], { ...DEFAULT_STATE.prefs, events: false, offers: false }, now, 3, [b("e3", 2)])).toHaveLength(0);
+  });
+});
+
+describe("grooming slots and pricing", () => {
+  const now = new Date(2026, 9, 23, 15, 10); // Fri 23 Oct 2026, 3:10 pm
+  it("lists 14 days starting today", () => {
+    const d = dayOptions(now);
+    expect(d).toHaveLength(14);
+    expect(d[0].iso).toBe("2026-10-23");
+    expect(d[0].dow).toBe("Today");
+  });
+  it("past and too-soon slots are never available today", () => {
+    expect(slotAvailable("g1", "2026-10-23", 10 * 60, now)).toBe(false);
+    expect(slotAvailable("g1", "2026-10-23", 16 * 60, now)).toBe(false);
+    expect(slotAvailable("g1", "2026-10-22", 15 * 60, now)).toBe(false);
+  });
+  it("availability is stable and some future slots are taken", () => {
+    const row = SLOT_TIMES.map((t) => slotAvailable("g1", "2026-10-28", t, now));
+    expect(row).toEqual(SLOT_TIMES.map((t) => slotAvailable("g1", "2026-10-28", t, now)));
+    expect(row.some((x) => x)).toBe(true);
+    expect(row.some((x) => !x)).toBe(true);
+  });
+  it("formats times", () => {
+    expect(fmtTime(10 * 60)).toBe("10 am");
+    expect(fmtTime(12 * 60 + 30)).toBe("12:30 pm");
+    expect(fmtTime(19 * 60 + 30)).toBe("7:30 pm");
+  });
+  it("Wednesday 15% off at Paws & Claws, free nails Sunday at Fluffy Tails", () => {
+    const g1 = GROOMERS[0], g2 = GROOMERS[1];
+    expect(quoteGrooming(g1, ["Bath", "Nail trim"], 3)).toMatchObject({ subtotal: 850, discount: 128, total: 722 });
+    expect(quoteGrooming(g1, ["Bath"], 2).discount).toBe(0);
+    expect(quoteGrooming(g2, ["Bath", "Nail trim"], 0)).toMatchObject({ subtotal: 700, discount: 200, total: 500 });
+    expect(quoteGrooming(g2, ["Bath"], 0).discount).toBe(0);
+  });
+});
+
+describe("payments helpers", () => {
+  it("validates UPI ids", () => {
+    expect(upiIdValid("diya@okhdfc")).toBe(true);
+    expect(upiIdValid("9876543210@paytm")).toBe(true);
+    expect(upiIdValid("diya")).toBe(false);
+    expect(upiIdValid("@upi")).toBe(false);
+  });
+  it("makes a 12 digit reference and groups it", () => {
+    const r = makeRef();
+    expect(r).toMatch(/^\d{12}$/);
+    expect(groupRef("123456789012")).toBe("1234 5678 9012");
+  });
+});
+
+describe("appointment reminders", () => {
+  it("reminds the day before and on the day, not later", () => {
+    const appt = (dateIso: string) => ({ id: "a1", ref: "123456789012", mins: 660, groomerId: "g1", groomer: "Paws & Claws", petName: "Bruno", services: ["Bath"], dateIso, time: "11 am", subtotal: 600, discount: 0, total: 600, paid: false, at: "" });
+    const titles = (iso: string) => buildNotifications([], DEFAULT_STATE.prefs, NOW, undefined, [], [appt(iso)]).filter((n) => n.kind === "grooming").map((n) => n.title);
+    expect(titles("2026-10-23")[0]).toContain("Bruno");
+    expect(titles("2026-10-22")[0]).toContain("Bruno");
+    expect(titles("2026-10-25")).toHaveLength(0);
   });
 });

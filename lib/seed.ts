@@ -17,11 +17,12 @@ export const VOLUNTEERS: Volunteer[] = [
   { id: "v4", name: "Sneha Patil", area: "Koregaon Park", vehicle: "scooter", skills: ["Birds", "Heatstroke"], km: 7.8, free: false, verified: true, lessons: 5, carrier: true },
   { id: "v5", name: "Neha More", area: "Kothrud", vehicle: "on foot", skills: ["Cats"], km: 6.1, free: false, verified: false, lessons: 1, carrier: false },
 ];
-export type Groomer = { id: string; name: string; area: string; km: number; rating: number; price: string; services: string[]; offer?: string };
+export type GroomService = { name: string; price: number };
+export type Groomer = { id: string; name: string; area: string; km: number; rating: number; price: string; services: GroomService[]; offer?: string };
 export const GROOMERS: Groomer[] = [
-  { id: "g1", name: "Paws & Claws", area: "Baner", km: 1.2, rating: 4.7, price: "₹600–1,500", services: ["Bath", "Haircut", "Nails"], offer: "15% off every Wednesday" },
-  { id: "g2", name: "Fluffy Tails", area: "Aundh", km: 2.4, rating: 4.5, price: "₹500–1,200", services: ["Bath", "De-shedding"], offer: "Free nail trim on Sundays" },
-  { id: "g3", name: "The Pet Salon", area: "Viman Nagar", km: 9.8, rating: 4.8, price: "₹800–2,000", services: ["Spa", "Haircut", "Teeth"] },
+  { id: "g1", name: "Paws & Claws", area: "Baner", km: 1.2, rating: 4.7, price: "₹600–1,500", services: [{ name: "Bath", price: 600 }, { name: "Haircut", price: 900 }, { name: "Nail trim", price: 250 }], offer: "15% off every Wednesday" },
+  { id: "g2", name: "Fluffy Tails", area: "Aundh", km: 2.4, rating: 4.5, price: "₹500–1,200", services: [{ name: "Bath", price: 500 }, { name: "De-shedding", price: 700 }, { name: "Nail trim", price: 200 }], offer: "Free nail trim on Sundays" },
+  { id: "g3", name: "The Pet Salon", area: "Viman Nagar", km: 9.8, rating: 4.8, price: "₹800–2,000", services: [{ name: "Spa", price: 1200 }, { name: "Haircut", price: 1000 }, { name: "Teeth cleaning", price: 800 }] },
 ];
 export type Food = { id: string; name: string; species: "Dog" | "Cat"; stage: "puppy" | "adult" | "senior" | "all"; allergens: string[]; price: number; kg: number; tags: string[]; offer?: string };
 export const FOODS: Food[] = [

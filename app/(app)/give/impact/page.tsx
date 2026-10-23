@@ -2,6 +2,7 @@
 import { BackHeader, Skeleton } from "@/components/ui";
 import { Pic, kindFor, type Coat } from "@/components/Art";
 import { CASES, money } from "@/lib/seed";
+import { groupRef } from "@/lib/payments";
 import { useHale } from "@/lib/store";
 
 export default function Impact() {
@@ -26,6 +27,18 @@ export default function Impact() {
           </div>
         ))}
       </div>
+      {state.receipts.length > 0 && (
+        <>
+          <div className="sectionTitle">Payment receipts</div>
+          <div className="stack" style={{ gap: 10 }}>
+            {[...state.receipts].reverse().map((r) => (
+              <div key={r.id} className="card">
+                <div className="row"><div className="grow"><div style={{ fontWeight: 600 }}>{r.payee}</div><div className="sub">{r.note}</div><div className="tiny">UPI ref {groupRef(r.ref)}</div></div><b>{money(r.amount)}</b></div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
       <button className="btn soft" style={{ marginTop: 18 }} onClick={async () => { try { await navigator.clipboard.writeText(`I helped ${state.helped} animals on Hale: hale.app`); } catch {} }}>Share my impact</button>
       <p className="demoNote" style={{ textAlign: "center", marginTop: 14 }}>Demo data</p>
     </div>

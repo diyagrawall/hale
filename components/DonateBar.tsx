@@ -14,7 +14,7 @@ export default function DonateBar() {
   const path = usePathname() ?? "";
   const { ready, state, update } = useHale();
   const [i, setI] = useState(0);
-  const [open, setOpen] = useState(false);
+  const [openId, setOpenId] = useState<string | null>(null);
   const nowDate = useNow();
   const now = nowDate ? nowDate.getTime() : 0;
 
@@ -35,7 +35,7 @@ export default function DonateBar() {
     <>
       <div className="donate" key={c.id}>
         <div className="inner">
-          <button className="row grow" style={{ textAlign: "left" }} onClick={() => setOpen(true)} aria-label={`Open case: ${c.name}`}>
+          <button className="row grow" style={{ textAlign: "left" }} onClick={() => setOpenId(c.id)} aria-label={`Open case: ${c.name}`}>
             <Pic kind={kindFor(c.species)} coat={c.coat as Coat} tone={c.tone} hurt size={44} radius={13} />
             <div className="grow">
               <div style={{ fontWeight: 600, fontSize: 15, lineHeight: 1.25 }}>{c.name} needs {money(left)} for {c.title.toLowerCase().includes("surgery") ? "surgery" : "treatment"}</div>
@@ -43,11 +43,11 @@ export default function DonateBar() {
               <div className="tiny">Verified by clinic · Demo</div>
             </div>
           </button>
-          <button className="btn primary sm" onClick={() => setOpen(true)}>Give</button>
+          <button className="btn primary sm" onClick={() => setOpenId(c.id)}>Give</button>
           <button className="x" aria-label="Hide for 24 hours" onClick={() => update((s) => ({ ...s, dismissed: { ...s.dismissed, [c.id]: Date.now() } }))}><Icon name="x" size={18} /></button>
         </div>
       </div>
-      {open && <CaseSheet item={c} onClose={() => setOpen(false)} />}
+      {openId && <CaseSheet item={CASES.find((x) => x.id === openId) ?? c} onClose={() => setOpenId(null)} />}
     </>
   );
 }

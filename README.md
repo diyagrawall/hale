@@ -16,7 +16,8 @@ Everyone gets the same five tabs: **Home · Care · Rescue · Give · Me**. The 
 
 - **Emergency (Rescue tab and the SOS pill on every screen):** report with a photo, voice or text in any language. AI reads it into species, injury and urgency. A fixed rule checks for danger words, so a red "Go to a vet now" alert works even if the AI is down. Then first-aid steps (read aloud, stored in the app), a volunteer ranked by plain code with an AI-written brief, a case thread with translation, and the nearest open vets with a pre-alert.
 - **Calm check:** a no-alarm path for things like a limp or a thin dog, with clear signs for when to escalate to SOS.
-- **Pet care (Care tab):** multiple pets, a health card with vaccine reminders, an AI vaccination-card scan, grooming centres and offers, allergy-aware food picks with an AI reason and a reorder reminder, an offers hub, and **event booking** (free reservations and paid tickets, with an itemised price, a 5% booking fee that is Hale's revenue, an optional rescue round-up, a confirmation ticket, calendar export, and reminders for events you booked).
+- **Pet care (Care tab):** multiple pets, a health card with vaccine reminders, an AI vaccination-card scan, grooming with a calendar-style booking (14 days, 30-minute slots, taken ones greyed out, day-specific offers, appointments with reminders), allergy-aware food picks with an AI reason and a reorder reminder, a full food checkout (quantity, address, delivery slot, order tracker), an offers hub, and **event booking** (free reservations and paid tickets, with an itemised price, a 5% booking fee that is Hale's revenue, an optional rescue round-up, a confirmation ticket, calendar export, and reminders for events you booked).
+- **Payments (simulated UPI):** donations, sponsoring, event tickets, grooming and food orders all go through one realistic checkout: pick Google Pay, PhonePe, Paytm, BHIM or a UPI ID, enter a PIN on a keypad, see a processing screen, then a receipt with a 12-digit reference. No money moves, the PIN is never stored or sent, and the screens say so.
 - **Give tab:** verified cases to support, monthly sponsoring, round-up giving at checkout, an impact feed, and a sticky donation bar that rotates verified cases and **hides itself during emergencies**.
 - **NGO tools:** fundraising first (emergency pool, create a campaign from an estimate), a live case queue with AI duplicate detection and suggested path, volunteer roster, shelter space, adopt/foster.
 - **Notifications centre:** reminders and day-specific offers (for example a Wednesday grooming offer), with category switches, quiet hours and a weekly offer cap. Health reminders always outrank offers.
@@ -25,7 +26,7 @@ Everyone gets the same five tabs: **Home · Care · Rescue · Give · Me**. The 
 
 | Real (logic or AI runs for real) | Simulated or seeded |
 | --- | --- |
-| Danger-word rule and urgency floor | Payments, orders, ticket payments, round-ups, sponsoring |
+| Danger-word rule and urgency floor | Payments (the UPI screens), orders and tracking, ticket payments, round-ups, sponsoring, slot availability |
 | AI triage from photo, voice and text | Clinic confirmation of an estimate |
 | AI vaccination-card scan, food reasons, volunteer brief, appeal | Volunteers, vets, groomers, events, offers, adoptable animals |
 | Reminder dates (vaccines, food bag, grooming) | Phone push notifications (shown in-app) |
@@ -68,7 +69,7 @@ Everyone gets the same five tabs: **Home · Care · Rescue · Give · Me**. The 
 | **Claude (`anthropic/claude-haiku-5.5`) via OpenRouter** | Fast and cheap enough for a 10-second goal, reads photos, and returns clean structured fields. |
 | **Plain code for safety, dates and money** | Must be exact, testable, and keep working when the AI is down. |
 | **Signed links, no database** | The demo needs no accounts; the case lives inside a link signed with HMAC. |
-| **Vitest** | 34 tests for the plain-code rules. |
+| **Vitest** | 49 tests for the plain-code rules. |
 
 ## Run it locally
 
@@ -80,7 +81,7 @@ cd hale
 npm install
 cp .env.example .env.local   # then fill in the two values
 npm run dev                  # http://localhost:3000 (use a phone-sized window)
-npm test                     # 34 automated tests
+npm test                     # 49 automated tests
 npm run build                # production build check
 ```
 

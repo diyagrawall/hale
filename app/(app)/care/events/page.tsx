@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import PaymentFlow from "@/components/Payment";
 import { BackHeader, Skeleton, Toast, Toggle } from "@/components/ui";
 import { Thumb, type ThumbKind } from "@/components/Art";
 import Icon from "@/components/Icon";
@@ -21,6 +22,7 @@ export default function Events() {
   const [bringing, setBringing] = useState<string[]>([]);
   const [round, setRound] = useState(false);
   const [done, setDone] = useState<Booking | null>(null);
+  const [paying, setPaying] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   if (!ready || !now) return <div className="screen"><Skeleton h={90} /></div>;
 
@@ -147,13 +149,14 @@ export default function Events() {
                   <div className="divider" style={{ margin: "10px 0" }} />
                   <div className="row"><b className="grow">Total</b><b style={{ fontSize: 20 }}>{price.total > 0 ? money(price.total) : "Free"}</b></div>
                 </div>
-                <button className="btn primary" style={{ marginTop: 16 }} disabled={left < 1} onClick={book}>{price.total > 0 ? `Pay ${money(price.total)} and book` : "Reserve my spot"}</button>
+                <button className="btn primary" style={{ marginTop: 16 }} disabled={left < 1} onClick={() => (price.total > 0 ? setPaying(true) : book())}>{price.total > 0 ? `Pay ${money(price.total)} and book` : "Reserve my spot"}</button>
                 <p className="demoNote" style={{ textAlign: "center", marginTop: 8 }}>Demo: payment by UPI is simulated</p>
               </div>
             )}
           </div>
         </>
       )}
+      {paying && sel && price && <PaymentFlow amount={price.total} payee="Hale Events" note={`${Math.min(qty, left)} ticket${qty > 1 ? "s" : ""}: ${sel.title}`} onDone={() => book()} onClose={() => setPaying(false)} />}
       <Toast text={toast} />
     </div>
   );

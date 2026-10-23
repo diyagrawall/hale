@@ -1,4 +1,4 @@
-import type { Booking, Pet, Prefs } from "./store";
+import type { Appointment, Booking, Pet, Prefs } from "./store";
 import { EVENTS, OFFERS } from "./seed";
 import { daysUntil, describeDays, foodRunsOutIn, groomDueIn, vaccineStatus } from "./reminders";
 
@@ -8,8 +8,14 @@ export type Notif = { id: string; kind: "health" | "grooming" | "food" | "offer"
  * Rules decide what to send and when; no AI. Health reminders always outrank offers,
  * offers are only for pets they suit, and offers per week are capped by the user's setting.
  */
-export function buildNotifications(pets: Pet[], prefs: Prefs, now: Date, weekday: number = now.getDay(), bookings: Booking[] = []): Notif[] {
+export function buildNotifications(pets: Pet[], prefs: Prefs, now: Date, weekday: number = now.getDay(), bookings: Booking[] = [], appointments: Appointment[] = []): Notif[] {
   const out: Notif[] = [];
+  if (prefs.grooming) {
+    for (const a of appointments) {
+      const d = daysUntil(a.dateIso, now);
+      if (d >= 0 && d <= 1) out.push({ id: `a-${a.id}`, kind: "grooming", priority: 1, title: `Grooming: ${a.petName} at ${a.groomer}`, body: `${d === 0 ? "Today" : "Tomorrow"}, ${a.time}. ${a.paid ? "Already paid." : "Pay at the salon."}`, href: "/care/grooming" });
+    }
+  }
   if (prefs.events) {
     for (const b of bookings) {
       const d = daysUntil(b.dateIso, now);

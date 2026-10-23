@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import PaymentFlow from "@/components/Payment";
 import { BackHeader, Skeleton, Toast } from "@/components/ui";
 import { CASES, money } from "@/lib/seed";
 import { useHale } from "@/lib/store";
@@ -10,6 +11,7 @@ export default function Sponsor() {
   const { ready, state, update } = useHale();
   const [amount, setAmount] = useState(300);
   const [target, setTarget] = useState("Emergency pool");
+  const [paying, setPaying] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   if (!ready) return <div className="screen"><Skeleton h={120} /></div>;
   const sp = state.sponsor;
@@ -36,10 +38,11 @@ export default function Sponsor() {
           <div className="choices">{AMOUNTS.map((a) => <button key={a} className={`choice ${amount === a ? "on" : ""}`} onClick={() => setAmount(a)}>{money(a)}</button>)}</div>
           <div className="sectionTitle">Where it goes</div>
           <div className="choices">{["Emergency pool", ...CASES.slice(0, 2).map((c) => c.name)].map((t) => <button key={t} className={`choice ${target === t ? "on" : ""}`} onClick={() => setTarget(t)}>{t}</button>)}</div>
-          <button className="btn primary" style={{ marginTop: 26 }} onClick={() => { update((s) => ({ ...s, sponsor: { amount, target, paused: false } })); say("Thank you! Sponsorship started (demo)"); }}>Sponsor {money(amount)} a month</button>
+          <button className="btn primary" style={{ marginTop: 26 }} onClick={() => setPaying(true)}>Sponsor {money(amount)} a month</button>
           <p className="demoNote" style={{ textAlign: "center", marginTop: 12 }}>Demo: payments simulated. Cancel anytime.</p>
         </>
       )}
+      {paying && <PaymentFlow amount={amount} payee="Hale Rescue Fund" note={`Monthly sponsorship: ${target}`} onDone={() => { update((s) => ({ ...s, sponsor: { amount, target, paused: false }, given: s.given + amount })); say("Thank you! Sponsorship started"); }} onClose={() => setPaying(false)} />}
       <Toast text={toast} />
     </div>
   );
