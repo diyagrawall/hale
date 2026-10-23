@@ -5,6 +5,7 @@ import { computeFunding, formatRupees } from "@/lib/funding";
 import { verify } from "@/lib/sign";
 import Icon from "@/components/Icon";
 import CaseDonate from "@/components/CaseDonate";
+import { Hero, kindFor } from "@/components/Art";
 
 export const metadata = { title: "Hale case: funding page" };
 
@@ -41,7 +42,7 @@ async function CaseBody({ searchParams }: { searchParams: Params }) {
   return (
     <div className="screen noNav">
       <div className="header"><span className="demoNote">hale.app · Demo: payments simulated</span></div>
-      <div className="photo" style={{ height: 190, borderRadius: 24 }}><Icon name="paw" size={52} /></div>
+      <Hero kind={kindFor(c.card.species)} hurt height={190} />
       <div className="row" style={{ margin: "14px 0 4px", color: "var(--teal)", fontWeight: 600, fontSize: 14 }}><Icon name="check" size={18} />Clinic confirmed estimate (simulated)</div>
       <h1 className="display" style={{ fontSize: 28 }}>Help {who} near {c.card.location}</h1>
       <p className="sub" style={{ marginTop: 6 }}>{c.card.injury} · {c.clinic}</p>

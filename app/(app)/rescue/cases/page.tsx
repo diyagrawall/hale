@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react";
 import Icon from "@/components/Icon";
 import { BackHeader, Toast } from "@/components/ui";
+import { Person } from "@/components/Art";
 import { NGO_CASES, SHELTERS, VOLUNTEERS } from "@/lib/seed";
 import { rankVolunteers } from "@/lib/volunteers";
 
@@ -41,7 +42,7 @@ export default function Cases() {
         <div className="stack">
           {ranked.map((v) => (
             <div key={v.id} className="card row">
-              <div className="ic" style={{ width: 46, height: 46, borderRadius: 16, background: "var(--teal-soft)", color: "var(--teal)", display: "grid", placeItems: "center", fontWeight: 700 }}>{v.name.split(" ").map((x) => x[0]).join("")}</div>
+              <Person name={v.name} size={46} />
               <div className="grow"><div style={{ fontWeight: 600 }}>{v.name}</div><div className="sub">{v.area} · {v.vehicle}{v.carrier ? " · carrier" : ""}</div><div className="tiny">{v.skills.join(", ")} · {v.lessons}/6 lessons</div></div>
               <div style={{ textAlign: "right" }}><div style={{ fontWeight: 600, color: v.free ? "var(--teal)" : "var(--ink3)", fontSize: 14 }}>{v.free ? "Free now" : "Busy"}</div><div className="tiny">{v.verified ? "Verified" : "To verify"}</div></div>
             </div>

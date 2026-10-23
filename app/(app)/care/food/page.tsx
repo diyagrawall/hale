@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Icon from "@/components/Icon";
+import { Thumb } from "@/components/Art";
 import PetSwitcher from "@/components/PetSwitcher";
 import { BackHeader, Skeleton, Toast, Toggle } from "@/components/ui";
 import { FOODS, money, type Food } from "@/lib/seed";
@@ -58,7 +59,7 @@ export default function FoodPage() {
         {foods.length === 0 && <div className="card sub">No matching foods in the demo catalogue.</div>}
         {foods.map((f) => (
           <div key={f.id} className="card">
-            <div className="row" style={{ alignItems: "flex-start" }}><div className="grow"><div style={{ fontWeight: 600, fontSize: 17 }}>{f.name}</div><div className="sub" style={{ marginTop: 3 }}><Icon name="sparkle" size={14} /> {reasons[f.id] ?? reasonTemplate(pet, f)}</div></div><div style={{ fontWeight: 600 }}>{money(f.price)}</div></div>
+            <div className="row" style={{ alignItems: "flex-start" }}><Thumb kind={f.species === "Cat" ? "can" : "bag"} size={52} /><div className="grow"><div style={{ fontWeight: 600, fontSize: 17 }}>{f.name}</div><div className="sub" style={{ marginTop: 3 }}><Icon name="sparkle" size={14} /> {reasons[f.id] ?? reasonTemplate(pet, f)}</div></div><div style={{ fontWeight: 600 }}>{money(f.price)}</div></div>
             {f.offer && <div className="row" style={{ marginTop: 8, color: "var(--amber)", fontWeight: 600, fontSize: 14 }}><Icon name="tag" size={18} />{f.offer}</div>}
             <button className="btn soft" style={{ marginTop: 12 }} onClick={() => { setOrder(f); setRound(state.prefs.roundUp); }}>Order</button>
           </div>

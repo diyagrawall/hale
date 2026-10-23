@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Icon from "@/components/Icon";
 import { BackHeader, Toast } from "@/components/ui";
+import { Hero, Pic, kindFor, type Coat } from "@/components/Art";
 import { ADOPTABLES, type Adoptable } from "@/lib/seed";
 
 export default function Adopt() {
@@ -17,7 +18,7 @@ export default function Adopt() {
         {ADOPTABLES.map((a) => (
           <button key={a.id} className="card" style={{ textAlign: "left" }} onClick={() => setSel(a)}>
             <div className="row">
-              <div className={`photo ${a.tone === "p1" ? "" : a.tone}`} style={{ width: 84, height: 84 }}><Icon name="paw" size={32} /></div>
+              <Pic kind={kindFor(a.species)} coat={a.coat as Coat} young={a.young} tone={a.tone} size={84} radius={22} />
               <div className="grow"><div style={{ fontWeight: 600, fontSize: 18 }}>{a.name}</div><div className="sub">{a.species} · {a.age}</div><div className="tiny" style={{ marginTop: 4 }}>{a.facts.join(" · ")}</div></div>
               <Icon name="chevR" size={20} />
             </div>
@@ -29,7 +30,7 @@ export default function Adopt() {
         <>
           <div className="scrim" onClick={() => setSel(null)} />
           <div className="sheet"><div className="grab" />
-            <div className={`photo ${sel.tone === "p1" ? "" : sel.tone}`} style={{ height: 150 }}><Icon name="paw" size={46} /></div>
+            <Hero kind={kindFor(sel.species)} coat={sel.coat as Coat} young={sel.young} tone={sel.tone} height={160} radius={22} />
             <h2 className="h2" style={{ marginTop: 14 }}>{sel.name}</h2>
             <div className="sub">{sel.species} · {sel.age} · {sel.facts.join(", ")} · with {sel.ngo}</div>
             <p style={{ marginTop: 10 }}>{sel.story}</p>

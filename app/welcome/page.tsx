@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Icon from "@/components/Icon";
+import { Scene } from "@/components/Art";
 import { useHale, type Persona } from "@/lib/store";
 
 const ROLES: { id: Persona; icon: string; title: string; sub: string }[] = [
@@ -21,7 +22,8 @@ export default function Welcome() {
     <div className="phone">
       <div className="screen noNav" style={{ minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
         <div style={{ paddingTop: 22 }}><span className="demoNote" style={{ background: "var(--bg2)", padding: "5px 11px", borderRadius: 999 }}>Demo</span></div>
-        <h1 className="display" style={{ marginTop: 36 }}>Who are you?</h1>
+        <div style={{ marginTop: 18 }}><Scene kind="welcome" height={176} /></div>
+        <h1 className="display" style={{ marginTop: 24 }}>Who are you?</h1>
         <p className="lead">You can change this later. Everything stays available to everyone.</p>
         <div className="stack" style={{ marginTop: 28 }}>
           {ROLES.map((r) => (

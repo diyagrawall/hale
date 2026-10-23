@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Icon from "@/components/Icon";
+import { Thumb } from "@/components/Art";
 import PetSwitcher from "@/components/PetSwitcher";
 import { BackHeader, Skeleton, Toast } from "@/components/ui";
 import { GROOMERS, type Groomer } from "@/lib/seed";
@@ -28,7 +29,7 @@ export default function Grooming() {
       <div className="stack">
         {GROOMERS.map((g) => (
           <div key={g.id} className="card">
-            <div className="row" style={{ alignItems: "flex-start" }}><div className="grow"><div style={{ fontWeight: 600, fontSize: 17 }}>{g.name}</div><div className="sub">{g.area} · {g.km} km · ★ {g.rating}</div></div><span className="tiny">{g.price}</span></div>
+            <div className="row" style={{ alignItems: "flex-start" }}><Thumb kind={g.id === "g3" ? "spa" : "groom"} size={52} /><div className="grow"><div style={{ fontWeight: 600, fontSize: 17 }}>{g.name}</div><div className="sub">{g.area} · {g.km} km · ★ {g.rating}</div></div><span className="tiny">{g.price}</span></div>
             <div className="sub" style={{ marginTop: 6 }}>{g.services.join(" · ")}</div>
             {g.offer && <div className="row" style={{ marginTop: 10, color: "var(--amber)", fontWeight: 600, fontSize: 14 }}><Icon name="tag" size={18} />{g.offer}</div>}
             <button className="btn soft" style={{ marginTop: 12 }} onClick={() => setSel(g)}>Book a slot</button>

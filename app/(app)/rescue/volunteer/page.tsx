@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import { BackHeader } from "@/components/ui";
+import { Person } from "@/components/Art";
 import { VOLUNTEERS } from "@/lib/seed";
 import { rankVolunteers } from "@/lib/volunteers";
 import { caseNumber, useActiveCase } from "@/lib/session";
@@ -109,7 +110,7 @@ export default function Volunteer() {
         <div className="tiny">{mode === "volunteer" ? `${top.name.split(" ")[0]} accepted` : mode === "auto" ? "Driver accepted" : "Ambulance on the way"}</div>
         <div className="display" style={{ fontSize: 36 }}>{progress >= 3 ? "With the animal" : "7 min away"}</div>
         <div className="row" style={{ marginTop: 12 }}>
-          <div className="ic" style={{ width: 46, height: 46, borderRadius: 16, background: "var(--teal-soft)", color: "var(--teal)", display: "grid", placeItems: "center", fontWeight: 700 }}>{top.name.split(" ").map((x) => x[0]).join("")}</div>
+          <Person name={mode === "volunteer" ? top.name : mode === "auto" ? "Santosh Auto" : "Karuna Ambulance"} size={46} />
           <div className="grow"><div style={{ fontWeight: 600 }}>{mode === "volunteer" ? top.name : mode === "auto" ? "Santosh (auto)" : "Karuna ambulance"}</div><div className="sub">{mode === "volunteer" ? `Verified · ${top.vehicle}${top.carrier ? " · carrier" : ""} · free` : "Demo · fare shown before the ride"}</div></div>
           <a href="tel:+910000000000" className="iconbtn" aria-label="Call"><Icon name="phone" /></a>
         </div>

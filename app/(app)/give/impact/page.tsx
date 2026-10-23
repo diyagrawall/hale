@@ -1,6 +1,6 @@
 "use client";
-import Icon from "@/components/Icon";
 import { BackHeader, Skeleton } from "@/components/ui";
+import { Pic, kindFor, type Coat } from "@/components/Art";
 import { CASES, money } from "@/lib/seed";
 import { useHale } from "@/lib/store";
 
@@ -21,7 +21,7 @@ export default function Impact() {
         {mine.length === 0 && <div className="card sub">When you give, updates and photos from the case will appear here.</div>}
         {mine.map((c) => (
           <div key={c.id} className="card">
-            <div className="row"><div className={`photo ${c.tone === "p1" ? "" : c.tone}`} style={{ width: 48, height: 48, borderRadius: 14 }}><Icon name="paw" size={22} /></div><div className="grow"><div style={{ fontWeight: 600 }}>{c.name}</div><div className="sub">You gave {money(state.raised[c.id])}</div></div></div>
+            <div className="row"><Pic kind={kindFor(c.species)} coat={c.coat as Coat} tone={c.tone} size={48} radius={14} /><div className="grow"><div style={{ fontWeight: 600 }}>{c.name}</div><div className="sub">You gave {money(state.raised[c.id])}</div></div></div>
             <div className="stack sub" style={{ gap: 6, marginTop: 10 }}>{c.updates.map((u) => <div key={u} className="row"><span className="dot teal" />{u}</div>)}</div>
           </div>
         ))}

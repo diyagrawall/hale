@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import Icon from "@/components/Icon";
 import CaseSheet from "@/components/CaseSheet";
+import { Pic, Scene, kindFor, type Coat } from "@/components/Art";
 import { HomeCard, SectionTitle, Skeleton, Toast, Toggle } from "@/components/ui";
 import { CASES, money, type CaseItem } from "@/lib/seed";
 import { useHale } from "@/lib/store";
@@ -24,7 +24,7 @@ export default function Give() {
           return (
             <button key={c.id} className="card" style={{ textAlign: "left" }} onClick={() => setOpen(c)}>
               <div className="row">
-                <div className={`photo ${c.tone === "p1" ? "" : c.tone}`} style={{ width: 64, height: 64 }}><Icon name="paw" size={26} /></div>
+                <Pic kind={kindFor(c.species)} coat={c.coat as Coat} tone={c.tone} hurt size={64} />
                 <div className="grow"><div style={{ fontWeight: 600, fontSize: 17 }}>{c.name}: {c.title}</div><div className="sub">{c.place} · {c.clinic}</div></div>
               </div>
               <div className="progress" style={{ margin: "14px 0 8px" }}><i style={{ width: `${pct}%` }} /></div>
@@ -41,6 +41,7 @@ export default function Give() {
     <div className="screen">
       <h1 className="display">Give</h1>
       <p className="lead">Every rupee goes straight to the treating clinic.</p>
+      <div style={{ marginTop: 16 }}><Scene kind="community" height={130} /></div>
 
       {ngo && (
         <div className="herocard" style={{ marginTop: 18 }}>

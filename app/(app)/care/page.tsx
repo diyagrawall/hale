@@ -4,6 +4,7 @@ import PetSwitcher from "@/components/PetSwitcher";
 import { HomeCard, Skeleton } from "@/components/ui";
 import { activePet, useHale, useNow } from "@/lib/store";
 import { cardInfo } from "@/lib/homecards";
+import { cardArt } from "@/components/cardArt";
 import type { CardId } from "@/lib/persona";
 
 export default function Care() {
@@ -19,7 +20,7 @@ export default function Care() {
       <div style={{ marginTop: 14 }}><PetSwitcher /></div>
       {!pet && <Link href="/onboarding/pet" className="btn primary" style={{ marginBottom: 14 }}>Add your pet</Link>}
       <div className="stack">
-        {ids.map((id) => { const c = cardInfo(id, { pet, now, state }); return <HomeCard key={id} icon={c.icon} tone={c.tone === "red" ? undefined : c.tone} title={c.title} status={c.status} href={c.href} due={c.due} />; })}
+        {ids.map((id) => { const c = cardInfo(id, { pet, now, state }); return <HomeCard key={id} icon={c.icon} art={cardArt(id, pet)} tone={c.tone === "red" ? undefined : c.tone} title={c.title} status={c.status} href={c.href} due={c.due} />; })}
       </div>
     </div>
   );

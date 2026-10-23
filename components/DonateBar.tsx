@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Icon from "./Icon";
 import CaseSheet from "./CaseSheet";
+import { Pic, kindFor, type Coat } from "./Art";
 import { inFocus } from "./TabBar";
 import { CASES, money } from "@/lib/seed";
 import { useHale, useNow } from "@/lib/store";
@@ -35,7 +36,7 @@ export default function DonateBar() {
       <div className="donate" key={c.id}>
         <div className="inner">
           <button className="row grow" style={{ textAlign: "left" }} onClick={() => setOpen(true)} aria-label={`Open case: ${c.name}`}>
-            <div className={`thumb photo ${c.tone === "p1" ? "" : c.tone}`}><Icon name="paw" size={22} /></div>
+            <Pic kind={kindFor(c.species)} coat={c.coat as Coat} tone={c.tone} hurt size={44} radius={13} />
             <div className="grow">
               <div style={{ fontWeight: 600, fontSize: 15, lineHeight: 1.25 }}>{c.name} needs {money(left)} for {c.title.toLowerCase().includes("surgery") ? "surgery" : "treatment"}</div>
               <div className="progress" style={{ height: 5, margin: "6px 0 2px" }}><i style={{ width: `${pct}%` }} /></div>

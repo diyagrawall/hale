@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import PetSwitcher from "@/components/PetSwitcher";
+import { Pic, coatFor, kindFor } from "@/components/Art";
 import { BackHeader, Skeleton, Toast } from "@/components/ui";
 import { activePet, useHale, useNow, type Pet } from "@/lib/store";
 import { daysUntil, describeDays, iso, vaccineStatus } from "@/lib/reminders";
@@ -53,7 +54,7 @@ export default function VetCare() {
       <BackHeader title="Vet care" />
       <PetSwitcher />
       <div className="card">
-        <div className="row"><div className="photo" style={{ width: 64, height: 64 }}><Icon name="paw" size={28} /></div><div className="grow"><div className="h2">{pet.name}</div><div className="sub">{pet.breed || pet.species} · {age !== null ? `${age < 1 ? Math.round(age * 12) + " months" : Math.floor(age) + " yrs"}` : "age not set"} · {pet.weightKg ? pet.weightKg + " kg" : "weight not set"}</div></div></div>
+        <div className="row"><Pic kind={kindFor(pet.species)} coat={coatFor(pet.breed, pet.species)} size={64} /><div className="grow"><div className="h2">{pet.name}</div><div className="sub">{pet.breed || pet.species} · {age !== null ? `${age < 1 ? Math.round(age * 12) + " months" : Math.floor(age) + " yrs"}` : "age not set"} · {pet.weightKg ? pet.weightKg + " kg" : "weight not set"}</div></div></div>
         <div className="divider" />
         <div className="stack sub" style={{ gap: 6 }}>
           <div><b>Allergies:</b> {pet.allergies.length ? pet.allergies.join(", ") : "none noted"}</div>

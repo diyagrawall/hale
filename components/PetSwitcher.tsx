@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import Icon from "./Icon";
+import { Pic, coatFor, kindFor } from "./Art";
 import { useHale } from "@/lib/store";
 
 export default function PetSwitcher() {
@@ -11,7 +12,7 @@ export default function PetSwitcher() {
     <div className="row" style={{ gap: 10, overflowX: "auto", padding: "4px 0 10px" }}>
       {state.pets.map((p) => (
         <button key={p.id} className="row" onClick={() => update((s) => ({ ...s, activePetId: p.id }))} style={{ gap: 8, padding: "6px 14px 6px 6px", borderRadius: 999, background: p.id === active ? "var(--teal)" : "#fff", color: p.id === active ? "#fff" : "var(--ink)", boxShadow: "var(--shadow)", flex: "none" }}>
-          <span style={{ width: 30, height: 30, borderRadius: "50%", background: p.id === active ? "rgba(255,255,255,.2)" : "var(--teal-soft)", display: "grid", placeItems: "center" }}><Icon name="paw" size={16} /></span>
+          <Pic kind={kindFor(p.species)} coat={coatFor(p.breed, p.species)} tone="teal" size={30} radius={15} />
           <span style={{ fontWeight: 600, fontSize: 15 }}>{p.name}</span>
         </button>
       ))}

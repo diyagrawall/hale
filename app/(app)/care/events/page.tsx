@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { BackHeader, Skeleton, Toast } from "@/components/ui";
+import { Thumb } from "@/components/Art";
 import { EVENTS } from "@/lib/seed";
 import { useNow } from "@/lib/store";
 import { addDays } from "@/lib/reminders";
@@ -21,9 +22,10 @@ export default function Events() {
       <div className="stack">
         {list.map((e) => (
           <div key={e.id} className="card">
+            <div className="row" style={{ alignItems: "flex-start" }}><Thumb kind={e.kind === "Vaccination camp" ? "camp" : e.kind === "Adoption drive" ? "adopt" : e.kind === "Meetup" ? "meetup" : "expo"} size={56} /><div className="grow">
             <div className="tiny">{addDays(now, e.inDays).toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" })} · {e.time}</div>
             <div style={{ fontWeight: 600, fontSize: 17, margin: "4px 0" }}>{e.title}</div>
-            <div className="sub">{e.place} · {e.km} km · by {e.host}{e.free ? " · Free" : ""}</div>
+            <div className="sub">{e.place} · {e.km} km · by {e.host}{e.free ? " · Free" : ""}</div></div></div>
             <div className="row" style={{ marginTop: 12 }}>
               <button className={`btn sm ${going.includes(e.id) ? "primary" : "soft"}`} onClick={() => { setGoing((g) => (g.includes(e.id) ? g.filter((x) => x !== e.id) : [...g, e.id])); setToast(going.includes(e.id) ? "RSVP removed" : "You are going. Added to calendar (demo)"); setTimeout(() => setToast(null), 2200); }}>{going.includes(e.id) ? "Going ✓" : "I'm going"}</button>
             </div>

@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import Icon from "@/components/Icon";
 import PetSwitcher from "@/components/PetSwitcher";
 import CaseSheet from "@/components/CaseSheet";
+import { Pic, coatFor, kindFor } from "@/components/Art";
+import { cardArt } from "@/components/cardArt";
 import { HomeCard, SectionTitle, Skeleton } from "@/components/ui";
 import { activePet, useHale, useNow } from "@/lib/store";
 import { ABOVE_FOLD, cardOrder } from "@/lib/persona";
@@ -33,7 +35,7 @@ export default function Home() {
 
   const render = (id: typeof order[number]) => {
     const c = cardInfo(id, { pet, now, state });
-    return <HomeCard key={id} icon={c.icon} tone={c.tone === "red" ? undefined : c.tone} title={c.title} status={c.status} href={c.href} due={c.due} onClick={c.sheet ? () => setSheet(true) : undefined} />;
+    return <HomeCard key={id} icon={c.icon} art={cardArt(id, pet)} tone={c.tone === "red" ? undefined : c.tone} title={c.title} status={c.status} href={c.href} due={c.due} onClick={c.sheet ? () => setSheet(true) : undefined} />;
   };
 
   return (
@@ -49,7 +51,7 @@ export default function Home() {
       )}
       {heroId === "vet" && (
         <div className="herocard" style={{ marginTop: 6 }}>
-          <div className="row" style={{ gap: 10 }}><Icon name="vet" /><span style={{ fontWeight: 600 }}>{pet ? `Vet care for ${pet.name}` : "Vet care"}</span></div>
+          <div className="row" style={{ gap: 10, justifyContent: "space-between" }}><div className="row" style={{ gap: 10 }}><Icon name="vet" /><span style={{ fontWeight: 600 }}>{pet ? `Vet care for ${pet.name}` : "Vet care"}</span></div>{pet && <Pic kind={kindFor(pet.species)} coat={coatFor(pet.breed, pet.species)} tone="teal" size={60} radius={20} />}</div>
           <div className="display" style={{ color: "#fff", fontSize: 26, marginTop: 14 }}>{pet && v ? `${v.name} ${describeDays(v.inDays)}` : "Add your pet to get reminders"}</div>
           <div className="s" style={{ marginTop: 6 }}>{pet ? (pet.lastVisit ? "Keep every vaccine on time." : "Add your last vet visit in Care.") : "Vaccines, vet visits and records in one place."}</div>
           <div className="row" style={{ marginTop: 18 }}>

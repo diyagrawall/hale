@@ -5,6 +5,7 @@ import Icon from "@/components/Icon";
 import { BackHeader } from "@/components/ui";
 import { useHale, useNow, newId, type Pet, type Vaccine } from "@/lib/store";
 import { demoPet, iso } from "@/lib/reminders";
+import { Pic, coatFor, kindFor } from "@/components/Art";
 
 const BREEDS = ["Labrador", "Golden Retriever", "German Shepherd", "Indie", "Beagle", "Pug", "Shih Tzu", "Indie cat", "Persian"];
 const ALLERGENS = ["chicken", "beef", "fish", "lamb", "grains"];
@@ -43,7 +44,7 @@ export default function PetOnboarding() {
       <div className="phone"><div className="screen noNav">
         <div className="header"><div className="grow" /></div>
         <div className="card" style={{ marginTop: 40, textAlign: "center", padding: 28 }}>
-          <div className="ic" style={{ width: 64, height: 64, borderRadius: 22, background: "var(--teal-soft)", color: "var(--teal)", display: "grid", placeItems: "center", margin: "0 auto 14px" }}><Icon name="check" size={30} stroke={2.4} /></div>
+          <div style={{ display: "grid", placeItems: "center", marginBottom: 14 }}><Pic kind={kindFor(pet.species)} coat={coatFor(pet.breed, pet.species)} size={96} radius={30} /></div>
           <h1 className="h2" style={{ fontSize: 26 }}>{pet.name || "Your pet"} is added</h1>
           <p className="sub" style={{ marginTop: 6 }}>{state.pets.length + 0 || 1} pet{state.pets.length > 1 ? "s" : ""} on Hale. We will remind you about vaccines, grooming and food.</p>
           <div className="stack" style={{ marginTop: 22 }}>

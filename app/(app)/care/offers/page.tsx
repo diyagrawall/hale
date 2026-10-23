@@ -1,6 +1,6 @@
 "use client";
-import Icon from "@/components/Icon";
 import { BackHeader, Skeleton } from "@/components/ui";
+import { Thumb } from "@/components/Art";
 import { OFFERS } from "@/lib/seed";
 import { useNow } from "@/lib/store";
 
@@ -14,7 +14,7 @@ export default function Offers() {
   const rest = OFFERS.filter((o) => o.weekday !== dow);
   const card = (o: (typeof OFFERS)[number], hot: boolean) => (
     <div key={o.id} className="card row" style={hot ? { outline: "2px solid var(--amber)" } : undefined}>
-      <div className="ic homecard" style={{ width: 46, height: 46, padding: 0, justifyContent: "center", boxShadow: "none", background: "var(--amber-soft)", color: "var(--amber)", borderRadius: 15 }}><Icon name="tag" /></div>
+      <Thumb kind={o.kind === "Grooming" ? "groom" : o.kind === "Food" ? "bag" : "camp"} size={46} />
       <div className="grow"><div style={{ fontWeight: 600 }}>{o.title}</div><div className="sub">{o.partner} · {o.kind}{o.weekday !== null ? ` · ${DAYS[o.weekday]}` : ""}{o.km ? ` · ${o.km} km` : ""}</div></div>
     </div>
   );

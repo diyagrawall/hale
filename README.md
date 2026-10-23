@@ -14,7 +14,7 @@ Research with NGO founders, vet students, breeders and pet owners (see `proof/`)
 
 Everyone gets the same five tabs: **Home · Care · Rescue · Give · Me**. The first launch asks who you are (found an animal, pet owner, NGO), and that only changes the **order of the cards** on Home. Nothing is hidden by role.
 
-- **Emergency (Rescue tab and the SOS pill on every screen):** report with a photo, voice or text in any language. AI reads it into species, injury and urgency. A fixed rule checks for danger words, so a red "Go to a vet now" alert works even if the AI is down. Then first-aid steps (offline, read aloud), a volunteer ranked by plain code with an AI-written brief, a case thread with translation, and the nearest open vets with a pre-alert.
+- **Emergency (Rescue tab and the SOS pill on every screen):** report with a photo, voice or text in any language. AI reads it into species, injury and urgency. A fixed rule checks for danger words, so a red "Go to a vet now" alert works even if the AI is down. Then first-aid steps (read aloud, stored in the app), a volunteer ranked by plain code with an AI-written brief, a case thread with translation, and the nearest open vets with a pre-alert.
 - **Calm check:** a no-alarm path for things like a limp or a thin dog, with clear signs for when to escalate to SOS.
 - **Pet care (Care tab):** multiple pets, a health card with vaccine reminders, an AI vaccination-card scan, grooming centres and offers, allergy-aware food picks with an AI reason and a reorder reminder, events, and an offers hub.
 - **Give tab:** verified cases to support, monthly sponsoring, round-up giving at checkout, an impact feed, and a sticky donation bar that rotates verified cases and **hides itself during emergencies**.

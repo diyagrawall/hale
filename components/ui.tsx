@@ -18,10 +18,10 @@ export function BackHeader({ title, href, right }: { title?: string; href?: stri
   );
 }
 
-export function HomeCard({ icon, tone, title, status, href, due, onClick }: { icon: string; tone?: "warm" | "blue"; title: string; status?: string; href?: string; due?: boolean; onClick?: () => void }) {
+export function HomeCard({ icon, tone, title, status, href, due, onClick, art }: { icon: string; tone?: "warm" | "blue"; title: string; status?: string; href?: string; due?: boolean; onClick?: () => void; art?: React.ReactNode }) {
   const inner = (
     <>
-      <div className={`ic ${tone ?? ""}`}><Icon name={icon} /></div>
+      {art ? <div style={{ flex: "none", lineHeight: 0 }}>{art}</div> : <div className={`ic ${tone ?? ""}`}><Icon name={icon} /></div>}
       <div className="grow">
         <div className="t">{title}</div>
         {status && <div className={`s ${due ? "due" : ""}`}>{status}</div>}

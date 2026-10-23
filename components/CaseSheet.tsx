@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Icon from "./Icon";
 import { CASES, money, type CaseItem } from "@/lib/seed";
+import { Hero, Scene, kindFor, type Coat } from "./Art";
 import { useHale } from "@/lib/store";
 
 const AMOUNTS = [200, 500, 1000];
@@ -31,10 +32,10 @@ export default function CaseSheet({ item, onClose }: { item: CaseItem; onClose: 
           <span className="tiny">Verified by clinic · Demo</span>
           <button className="iconbtn" onClick={onClose} aria-label="Close"><Icon name="x" /></button>
         </div>
-        <div className="row" style={{ gap: 8, margin: "12px 0" }}>
-          {(["p1", "p2", "p3"] as const).map((t, i) => (
-            <div key={t} className={`photo ${t === "p1" ? "" : t === "p2" ? "p2" : "p3"}`} style={{ flex: i === 0 ? 2 : 1, height: 130 }}><Icon name="paw" size={34} /></div>
-          ))}
+        <div className="row" style={{ gap: 8, margin: "12px 0", alignItems: "stretch" }}>
+          <div style={{ flex: 2 }}><Hero kind={kindFor(item.species)} coat={item.coat as Coat} tone={item.tone} hurt height={130} radius={18} /></div>
+          <div style={{ flex: 1 }}><Scene kind="clinic" height={130} radius={18} /></div>
+          <div style={{ flex: 1 }}><Scene kind="recovery" height={130} radius={18} /></div>
         </div>
         <h2 className="h2">{item.title}</h2>
         <div className="sub" style={{ marginTop: 4 }}>{item.name} · {item.species} · {item.place}</div>

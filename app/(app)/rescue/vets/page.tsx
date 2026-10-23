@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import Icon from "@/components/Icon";
+import { Thumb } from "@/components/Art";
 import { BackHeader, Skeleton } from "@/components/ui";
 import { describeHours, distanceKm, isOpenAt, istMinutesNow } from "@/lib/vets";
 import { VETS } from "@/lib/vets";
@@ -54,10 +55,11 @@ export default function Vets() {
           {shown.map((v) => (
             <div key={v.id} className="card">
               <div className="row" style={{ alignItems: "flex-start" }}>
+                <Thumb kind="clinic" size={48} />
                 <div className="grow"><div style={{ fontWeight: 600, fontSize: 17 }}>{v.name}</div><div className="sub">{v.area} · {v.km.toFixed(1)} km · {v.open ? <span style={{ color: "var(--teal)", fontWeight: 600 }}>{describeHours(v)}</span> : <span style={{ color: "var(--red)" }}>Closed now</span>}</div></div>
                 <span className="tiny">{v.price}</span>
               </div>
-              <div className="sub" style={{ marginTop: 6 }}>{v.kind ? v.kind[0].toUpperCase() + v.kind.slice(1) + " · " : ""}{v.note ?? ""}</div>
+              <div className="sub" style={{ marginTop: 6 }}>{v.kind ? (v.kind === "ngo" ? "NGO" : v.kind[0].toUpperCase() + v.kind.slice(1)) + " · " : ""}{v.note ?? ""}</div>
               <div className="row" style={{ marginTop: 12 }}>
                 <a className="btn primary grow" href="tel:+910000000000"><Icon name="phone" size={18} />Call</a>
                 <a className="btn soft sm" href={`https://maps.google.com/?q=${v.lat},${v.lng}`} target="_blank" rel="noreferrer">Navigate</a>

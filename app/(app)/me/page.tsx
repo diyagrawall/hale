@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Icon from "@/components/Icon";
 import { HomeCard, SectionTitle } from "@/components/ui";
 import { useHale, type Persona } from "@/lib/store";
+import { Pic, coatFor, kindFor } from "@/components/Art";
 
 const ROLES: { id: Persona; label: string }[] = [{ id: "finder", label: "Found an animal" }, { id: "owner", label: "Pet owner" }, { id: "ngo", label: "NGO" }];
 
@@ -19,7 +20,7 @@ export default function Me() {
       <p className="tiny" style={{ marginTop: 8 }}>This only changes the order of cards on Home. Nothing is hidden.</p>
       <SectionTitle>My pets</SectionTitle>
       <div className="stack">
-        {state.pets.map((p) => <div key={p.id} className="card row"><span className="ic homecard" style={{ width: 44, height: 44, padding: 0, justifyContent: "center", boxShadow: "none", background: "var(--teal-soft)", color: "var(--teal)", borderRadius: 14 }}><Icon name="paw" /></span><div className="grow"><div style={{ fontWeight: 600 }}>{p.name}</div><div className="sub">{p.breed || p.species} · {p.weightKg ? `${p.weightKg} kg` : "weight not set"}</div></div></div>)}
+        {state.pets.map((p) => <div key={p.id} className="card row"><Pic kind={kindFor(p.species)} coat={coatFor(p.breed, p.species)} size={44} radius={14} /><div className="grow"><div style={{ fontWeight: 600 }}>{p.name}</div><div className="sub">{p.breed || p.species} · {p.weightKg ? `${p.weightKg} kg` : "weight not set"}</div></div></div>)}
         <Link href="/onboarding/pet" className="btn soft"><Icon name="plus" size={18} />Add a pet</Link>
       </div>
       <SectionTitle>Settings</SectionTitle>
