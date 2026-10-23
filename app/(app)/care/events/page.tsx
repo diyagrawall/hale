@@ -10,6 +10,7 @@ import { addDays, iso } from "@/lib/reminders";
 import { MAX_TICKETS, ROUND_UP, icsFor, priceBooking, seatsLeft } from "@/lib/booking";
 
 const KINDS = ["All", "Vaccination camp", "Adoption drive", "Meetup", "Workshop", "Expo"];
+const KIND_LABEL: Record<string, string> = { All: "All", "Vaccination camp": "Vaccination", "Adoption drive": "Adoption", Meetup: "Meetups", Workshop: "Workshops", Expo: "Expos" };
 const thumbFor = (k: EventItem["kind"]): ThumbKind => (k === "Vaccination camp" ? "camp" : k === "Adoption drive" ? "adopt" : k === "Meetup" ? "meetup" : k === "Workshop" ? "aid" : "expo");
 const when = (now: Date, inDays: number) => addDays(now, inDays).toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" });
 
@@ -74,7 +75,7 @@ export default function Events() {
         </>
       )}
 
-      <div className="choices" style={{ margin: "14px 0 16px" }}>{KINDS.map((k) => <button key={k} className={`choice ${kind === k ? "on" : ""}`} onClick={() => setKind(k)}>{k === "All" ? "All" : k + "s"}</button>)}</div>
+      <div className="choices grid3" style={{ margin: "14px 0 16px" }}>{KINDS.map((k) => <button key={k} className={`choice ${kind === k ? "on" : ""}`} onClick={() => setKind(k)}>{KIND_LABEL[k]}</button>)}</div>
       <div className="stack">
         {list.map((e) => {
           const n = seatsLeft(e, mine);

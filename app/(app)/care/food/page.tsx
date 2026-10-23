@@ -45,7 +45,7 @@ export default function FoodPage() {
   if (!pet) return <div className="screen"><BackHeader title="Food" /><div className="card sub" style={{ marginTop: 16 }}>Add a pet to get food picks and reorder reminders.</div></div>;
   const left = foodRunsOutIn(pet, now);
 
-  const slots = [...(now.getHours() < 16 ? ["Today, 6 to 8 pm"] : []), "Tomorrow, 9 to 11 am", "Tomorrow, 6 to 8 pm", "Day after, 9 to 11 am"];
+  const slots = [...(now.getHours() < 16 ? ["Today, 6–8 pm"] : []), "Tomorrow, 9–11 am", "Tomorrow, 6–8 pm", "Day after, 9–11 am"];
   const itemTotal = order ? order.price * qty : 0;
   const delivery = itemTotal >= FREE_DELIVERY_AT ? 0 : DELIVERY_FEE;
   const donation = round ? ROUND : 0;
@@ -137,7 +137,7 @@ export default function FoodPage() {
                 <div className="sectionTitle" style={{ marginTop: 14 }}>Deliver to</div>
                 <textarea className="field" rows={2} value={address} onChange={(e) => setAddress(e.target.value)} aria-label="Delivery address" />
                 <div className="sectionTitle">Delivery time</div>
-                <div className="choices">{slots.map((x) => <button key={x} className={`choice ${chosenSlot === x ? "on" : ""}`} onClick={() => setSlot(x)}>{x}</button>)}</div>
+                <div className="choices grid2">{slots.map((x) => <button key={x} className={`choice ${chosenSlot === x ? "on" : ""}`} onClick={() => setSlot(x)}>{x}</button>)}</div>
                 <div style={{ marginTop: 14 }}><Toggle label="Round up for a rescue" sub={`Add ₹${ROUND} to help an injured stray`} on={round} onChange={setRound} /></div>
                 <div className="card flat" style={{ marginTop: 12 }}>
                   <div className="row sub"><span className="grow">Items</span><span style={{ color: "var(--ink)" }}>{money(itemTotal)}</span></div>
