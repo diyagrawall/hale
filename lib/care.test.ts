@@ -102,3 +102,51 @@ describe("volunteer ranking is plain code", () => {
     expect(r[0].why).toContain("free now");
   });
 });
+
+import { icsFor, priceBooking, seatsLeft } from "./booking";
+import { EVENTS } from "./seed";
+import type { Booking } from "./store";
+
+describe("event booking money (plain code)", () => {
+  const camp = EVENTS.find((e) => e.id === "e1")!; // free
+  const meetup = EVENTS.find((e) => e.id === "e3")!; // ₹199
+  const expo = EVENTS.find((e) => e.id === "e4")!; // ₹299
+  it("free events cost nothing, with no fee and no round-up", () => {
+    expect(priceBooking(camp, 2, true)).toEqual({ tickets: 0, fee: 0, donation: 0, total: 0 });
+  });
+  it("paid events add a 5% booking fee, at least ₹10 and at most ₹49", () => {
+    expect(priceBooking(meetup, 2, false)).toEqual({ tickets: 398, fee: 20, donation: 0, total: 418 });
+    expect(priceBooking({ price: 50 }, 1, false).fee).toBe(10);
+    expect(priceBooking(expo, 6, false).fee).toBe(49);
+  });
+  it("adds the rescue round-up only on paid bookings", () => {
+    expect(priceBooking(meetup, 1, true).total).toBe(199 + 10 + 20);
+  });
+  it("keeps the number of tickets between 1 and 6", () => {
+    expect(priceBooking(meetup, 0, false).tickets).toBe(199);
+    expect(priceBooking(meetup, 99, false).tickets).toBe(199 * 6);
+  });
+});
+
+describe("seats and tickets", () => {
+  const b = (eventId: string, qty: number): Booking => ({ id: "x" + qty, ref: "HL-TEST", eventId, title: "Test event", place: "Baner", time: "10 am", dateIso: "2026-10-25", qty, pets: [], tickets: 0, fee: 0, donation: 0, total: 0, at: "2026-10-22T00:00:00.000Z" });
+  it("counts spots left and never goes below zero", () => {
+    const meetup = EVENTS.find((e) => e.id === "e3")!;
+    expect(seatsLeft(meetup, [])).toBe(20);
+    expect(seatsLeft(meetup, [b("e3", 6), b("e3", 4), b("e1", 9)])).toBe(10);
+    expect(seatsLeft(meetup, [b("e3", 30)])).toBe(0);
+  });
+  it("makes a calendar file with the booking number", () => {
+    const ics = icsFor(b("e3", 2));
+    expect(ics).toContain("BEGIN:VCALENDAR");
+    expect(ics).toContain("DTSTART;VALUE=DATE:20261025");
+    expect(ics).toContain("HL-TEST");
+  });
+  it("reminds about a ticket the day before, ahead of offers", () => {
+    const now = new Date(2026, 9, 24, 12, 0, 0);
+    const list = buildNotifications([demoPet(now)], DEFAULT_STATE.prefs, now, 3, [b("e3", 2)]);
+    expect(list[0].title).toContain("Your ticket");
+    expect(list[0].body).toContain("Tomorrow");
+    expect(buildNotifications([], { ...DEFAULT_STATE.prefs, events: false, offers: false }, now, 3, [b("e3", 2)])).toHaveLength(0);
+  });
+});

@@ -20,7 +20,10 @@ export function cardInfo(id: CardId, ctx: { pet: Pet | null; now: Date; state: H
       const f = pet ? foodRunsOutIn(pet, now) : null;
       return { icon: "bowl", tone: "warm", title: "Food", status: f !== null ? `${pet!.name}'s food runs out in ${Math.max(f, 0)} days` : "Picks for your pet and offers", href: "/care/food", due: f !== null && f <= 7 };
     }
-    case "events": return { icon: "calendar", tone: "blue", title: "Events nearby", status: `${EVENTS.filter((e) => e.inDays <= 7).length} this week, including a free vaccination camp`, href: "/care/events" };
+    case "events": {
+      const next = [...state.bookings].sort((a, b) => a.dateIso.localeCompare(b.dateIso))[0];
+      return { icon: "calendar", tone: "blue", title: "Events nearby", status: next ? `Booked: ${next.title}` : `${EVENTS.filter((e) => e.inDays <= 7).length} this week, including a free vaccination camp`, href: "/care/events" };
+    }
     case "offers": return { icon: "tag", tone: "blue", title: "Offers", status: `${OFFERS.length} offers near you`, href: "/care/offers" };
     case "sos": return { icon: "alert", tone: "red", title: "Emergency SOS", status: "Animal hurt or in danger?", href: "/rescue/sos" };
     case "check": return { icon: "eye", title: "Check on an animal", status: "A calm check for a limp or a thin dog", href: "/rescue/check" };

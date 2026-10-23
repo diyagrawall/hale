@@ -17,7 +17,7 @@ export default function Notifications() {
   const now = useNow();
   const [wed, setWed] = useState(false);
   if (!ready || !now) return <div className="screen"><Skeleton h={90} /></div>;
-  const list = buildNotifications(state.pets, state.prefs, now, wed ? 3 : undefined);
+  const list = buildNotifications(state.pets, state.prefs, now, wed ? 3 : undefined, state.bookings);
   const setPref = <K extends keyof Prefs>(k: K, v: Prefs[K]) => update((s) => ({ ...s, prefs: { ...s.prefs, [k]: v } }));
   return (
     <div className="screen">

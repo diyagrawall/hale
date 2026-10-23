@@ -266,11 +266,11 @@ export function Scene({ kind, height = 160, radius = 22, style }: { kind: SceneK
   );
 }
 
-export type ThumbKind = "groom" | "spa" | "bag" | "can" | "camp" | "adopt" | "meetup" | "expo" | "offer" | "clinic" | "aid" | "give" | "eye";
+export type ThumbKind = "groom" | "spa" | "bag" | "can" | "camp" | "adopt" | "meetup" | "expo" | "offer" | "clinic" | "aid" | "give" | "eye" | "ticket";
 
 /** Small illustrated tiles for list rows. */
 export function Thumb({ kind, size = 46, radius }: { kind: ThumbKind; size?: number; radius?: number }) {
-  const bgs: Record<ThumbKind, string> = { groom: "#D3DAEA", spa: "#F0D4CD", bag: "#F6E3BF", can: "#D6E7E2", camp: "#D6E7E2", adopt: "#F0D4CD", meetup: "#D5E2D0", expo: "#F6E3BF", offer: "#F6E3BF", clinic: "#D6E7E2", aid: "#F0D4CD", give: "#F6E3BF", eye: "#D5E2D0" };
+  const bgs: Record<ThumbKind, string> = { groom: "#D3DAEA", spa: "#F0D4CD", bag: "#F6E3BF", can: "#D6E7E2", camp: "#D6E7E2", adopt: "#F0D4CD", meetup: "#D5E2D0", expo: "#F6E3BF", offer: "#F6E3BF", clinic: "#D6E7E2", aid: "#F0D4CD", give: "#F6E3BF", eye: "#D5E2D0", ticket: "#D3DAEA" };
   let art: ReactNode;
   switch (kind) {
     case "groom":
@@ -308,6 +308,9 @@ export function Thumb({ kind, size = 46, radius }: { kind: ThumbKind; size?: num
       break;
     case "give":
       art = <><rect x="22" y="48" width="56" height="36" rx="6" fill="#E0605A" /><rect x="18" y="38" width="64" height="14" rx="5" fill="#EB7C76" /><path d="M50 38v46" stroke="#FBE9E6" strokeWidth="5" /><path d="M50 38c-8-14-24-10-18 0M50 38c8-14 24-10 18 0" stroke="#E0605A" strokeWidth="5" fill="none" strokeLinecap="round" /></>;
+      break;
+    case "ticket":
+      art = <><path d="M14 34h72v10a8 8 0 0 0 0 16v10H14V60a8 8 0 0 0 0-16z" fill="#fff" /><path d="M64 34v36" stroke="#3F6FA8" strokeWidth="3" strokeDasharray="5 5" /><path d="M30 46h22M30 56h14" stroke="#3F6FA8" strokeWidth="5" strokeLinecap="round" /><circle cx="75" cy="52" r="5" fill="#E0605A" /></>;
       break;
     case "eye":
       art = <><path d="M14 52s14-22 36-22 36 22 36 22-14 22-36 22-36-22-36-22z" fill="#fff" /><circle cx="50" cy="52" r="13" fill="#6B7A3B" /><circle cx="50" cy="52" r="6" fill={INK} /><circle cx="54" cy="48" r="3" fill="#fff" /></>;

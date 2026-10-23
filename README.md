@@ -16,7 +16,7 @@ Everyone gets the same five tabs: **Home · Care · Rescue · Give · Me**. The 
 
 - **Emergency (Rescue tab and the SOS pill on every screen):** report with a photo, voice or text in any language. AI reads it into species, injury and urgency. A fixed rule checks for danger words, so a red "Go to a vet now" alert works even if the AI is down. Then first-aid steps (read aloud, stored in the app), a volunteer ranked by plain code with an AI-written brief, a case thread with translation, and the nearest open vets with a pre-alert.
 - **Calm check:** a no-alarm path for things like a limp or a thin dog, with clear signs for when to escalate to SOS.
-- **Pet care (Care tab):** multiple pets, a health card with vaccine reminders, an AI vaccination-card scan, grooming centres and offers, allergy-aware food picks with an AI reason and a reorder reminder, events, and an offers hub.
+- **Pet care (Care tab):** multiple pets, a health card with vaccine reminders, an AI vaccination-card scan, grooming centres and offers, allergy-aware food picks with an AI reason and a reorder reminder, an offers hub, and **event booking** (free reservations and paid tickets, with an itemised price, a 5% booking fee that is Hale's revenue, an optional rescue round-up, a confirmation ticket, calendar export, and reminders for events you booked).
 - **Give tab:** verified cases to support, monthly sponsoring, round-up giving at checkout, an impact feed, and a sticky donation bar that rotates verified cases and **hides itself during emergencies**.
 - **NGO tools:** fundraising first (emergency pool, create a campaign from an estimate), a live case queue with AI duplicate detection and suggested path, volunteer roster, shelter space, adopt/foster.
 - **Notifications centre:** reminders and day-specific offers (for example a Wednesday grooming offer), with category switches, quiet hours and a weekly offer cap. Health reminders always outrank offers.
@@ -25,7 +25,7 @@ Everyone gets the same five tabs: **Home · Care · Rescue · Give · Me**. The 
 
 | Real (logic or AI runs for real) | Simulated or seeded |
 | --- | --- |
-| Danger-word rule and urgency floor | Payments, orders, round-ups, sponsoring |
+| Danger-word rule and urgency floor | Payments, orders, ticket payments, round-ups, sponsoring |
 | AI triage from photo, voice and text | Clinic confirmation of an estimate |
 | AI vaccination-card scan, food reasons, volunteer brief, appeal | Volunteers, vets, groomers, events, offers, adoptable animals |
 | Reminder dates (vaccines, food bag, grooming) | Phone push notifications (shown in-app) |

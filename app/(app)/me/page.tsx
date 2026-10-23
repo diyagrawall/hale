@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Icon from "@/components/Icon";
 import { HomeCard, SectionTitle } from "@/components/ui";
 import { useHale, type Persona } from "@/lib/store";
-import { Pic, coatFor, kindFor } from "@/components/Art";
+import { Pic, Thumb, coatFor, kindFor } from "@/components/Art";
 
 const ROLES: { id: Persona; label: string }[] = [{ id: "finder", label: "Found an animal" }, { id: "owner", label: "Pet owner" }, { id: "ngo", label: "NGO" }];
 
@@ -25,6 +25,7 @@ export default function Me() {
       </div>
       <SectionTitle>Settings</SectionTitle>
       <div className="stack">
+        <HomeCard icon="calendar" art={<Thumb kind="ticket" />} title="My tickets" status={state.bookings.length ? `${state.bookings.length} booked` : "Book events nearby"} href="/care/events" />
         <HomeCard icon="bell" title="Notifications" status="Reminders, offers and events" href="/me/notifications" />
         <HomeCard icon="give" title="Round up my orders" status={state.prefs.roundUp ? "On" : "Off"} onClick={() => update((s) => ({ ...s, prefs: { ...s.prefs, roundUp: !s.prefs.roundUp } }))} />
         <HomeCard icon="trend" title="My impact" status={`${state.helped} animals helped`} href="/give/impact" />

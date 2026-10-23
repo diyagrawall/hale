@@ -33,12 +33,13 @@ export const FOODS: Food[] = [
   { id: "f6", name: "Tuna Pâté 12 cans", species: "Cat", stage: "all", allergens: ["fish"], price: 960, kg: 1, tags: ["wet food"] },
   { id: "f7", name: "Turkey & Pumpkin Adult 3 kg", species: "Dog", stage: "adult", allergens: ["turkey"], price: 1550, kg: 3, tags: ["gentle on stomach"] },
 ];
-export type EventItem = { id: string; title: string; inDays: number; time: string; place: string; km: number; kind: "Vaccination camp" | "Adoption drive" | "Meetup" | "Expo"; host: string; free: boolean };
+export type EventItem = { id: string; title: string; inDays: number; time: string; place: string; km: number; kind: "Vaccination camp" | "Adoption drive" | "Meetup" | "Expo" | "Workshop"; host: string; free: boolean; price: number; seats: number };
 export const EVENTS: EventItem[] = [
-  { id: "e1", title: "Free anti-rabies vaccination camp", inDays: 3, time: "10 am", place: "Baner Community Hall", km: 1.4, kind: "Vaccination camp", host: "Paws Pune Trust", free: true },
-  { id: "e2", title: "Adoption drive: meet 20 rescued pups", inDays: 4, time: "11 am", place: "Koregaon Park Lawns", km: 8.1, kind: "Adoption drive", host: "Pune Rescue Network", free: true },
-  { id: "e3", title: "Sunday dog meetup", inDays: 4, time: "7 am", place: "Aundh Riverside Park", km: 2.6, kind: "Meetup", host: "Aundh Dog Parents", free: true },
-  { id: "e4", title: "Pune Pet Expo", inDays: 11, time: "All day", place: "Shivajinagar Grounds", km: 7.0, kind: "Expo", host: "Pet Expo India", free: false },
+  { id: "e1", title: "Free anti-rabies vaccination camp", inDays: 3, time: "10 am", place: "Baner Community Hall", km: 1.4, kind: "Vaccination camp", host: "Paws Pune Trust", free: true, price: 0, seats: 40 },
+  { id: "e2", title: "Adoption drive: meet 20 rescued pups", inDays: 4, time: "11 am", place: "Koregaon Park Lawns", km: 8.1, kind: "Adoption drive", host: "Pune Rescue Network", free: true, price: 0, seats: 100 },
+  { id: "e3", title: "Sunday dog meetup with a trainer", inDays: 4, time: "7 am", place: "Aundh Riverside Park", km: 2.6, kind: "Meetup", host: "Aundh Dog Parents", free: false, price: 199, seats: 20 },
+  { id: "e5", title: "Puppy first-aid workshop", inDays: 6, time: "4 pm", place: "Baner Pet Hub", km: 1.9, kind: "Workshop", host: "Paws Pune Trust", free: false, price: 399, seats: 25 },
+  { id: "e4", title: "Pune Pet Expo", inDays: 11, time: "All day", place: "Shivajinagar Grounds", km: 7.0, kind: "Expo", host: "Pet Expo India", free: false, price: 299, seats: 500 },
 ];
 export type Offer = { id: string; kind: "Grooming" | "Food" | "Event"; partner: string; title: string; weekday: number | null; species?: "Dog" | "Cat"; km?: number };
 export const OFFERS: Offer[] = [

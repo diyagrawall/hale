@@ -26,6 +26,7 @@ export type Prefs = {
   health: boolean; grooming: boolean; food: boolean; offers: boolean; events: boolean; cases: boolean;
   offersPerWeek: number; quietFrom: string; quietTo: string; roundUp: boolean;
 };
+export type Booking = { id: string; ref: string; eventId: string; title: string; place: string; time: string; dateIso: string; qty: number; pets: string[]; tickets: number; fee: number; donation: number; total: number; at: string };
 export type HaleState = {
   persona: Persona | null;
   volunteer: boolean;
@@ -38,6 +39,7 @@ export type HaleState = {
   helped: number;
   sponsor: { amount: number; target: string; paused: boolean } | null;
   location: string;
+  bookings: Booking[];
 };
 
 export const DEFAULT_STATE: HaleState = {
@@ -52,6 +54,7 @@ export const DEFAULT_STATE: HaleState = {
   helped: 0,
   sponsor: null,
   location: "Baner, Pune",
+  bookings: [],
 };
 
 const KEY = "hale.v1";

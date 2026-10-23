@@ -1,6 +1,6 @@
-import type { Pet, Prefs } from "./store";
+import type { Booking, Pet, Prefs } from "./store";
 import { EVENTS, OFFERS } from "./seed";
-import { describeDays, foodRunsOutIn, groomDueIn, vaccineStatus } from "./reminders";
+import { daysUntil, describeDays, foodRunsOutIn, groomDueIn, vaccineStatus } from "./reminders";
 
 export type Notif = { id: string; kind: "health" | "grooming" | "food" | "offer" | "event"; title: string; body: string; priority: number; href: string };
 
@@ -8,8 +8,14 @@ export type Notif = { id: string; kind: "health" | "grooming" | "food" | "offer"
  * Rules decide what to send and when; no AI. Health reminders always outrank offers,
  * offers are only for pets they suit, and offers per week are capped by the user's setting.
  */
-export function buildNotifications(pets: Pet[], prefs: Prefs, now: Date, weekday: number = now.getDay()): Notif[] {
+export function buildNotifications(pets: Pet[], prefs: Prefs, now: Date, weekday: number = now.getDay(), bookings: Booking[] = []): Notif[] {
   const out: Notif[] = [];
+  if (prefs.events) {
+    for (const b of bookings) {
+      const d = daysUntil(b.dateIso, now);
+      if (d >= 0 && d <= 2) out.push({ id: `b-${b.id}`, kind: "event", priority: 1, title: `Your ticket: ${b.title}`, body: `${d === 0 ? "Today" : d === 1 ? "Tomorrow" : "In 2 days"}, ${b.time}, ${b.place}. Booking ${b.ref}.`, href: "/care/events" });
+    }
+  }
   for (const pet of pets) {
     if (prefs.health) {
       for (const v of vaccineStatus(pet, now)) if (v.inDays <= 14) out.push({ id: `v-${pet.id}-${v.name}`, kind: "health", priority: 1, title: `${pet.name}: ${v.name} ${describeDays(v.inDays)}`, body: "Book a visit so the cover does not lapse.", href: "/care/vet" });
