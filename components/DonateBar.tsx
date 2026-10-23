@@ -9,6 +9,9 @@ import { CASES, money } from "@/lib/seed";
 import { useHale, useNow } from "@/lib/store";
 
 const DAY = 86_400_000;
+const EMERGENCY = ["/rescue/sos", "/rescue/triage", "/rescue/first-aid", "/rescue/volunteer", "/rescue/vets", "/rescue/check"];
+const FLAG = "hale.emergency";
+const flagged = () => { try { return sessionStorage.getItem(FLAG) === "1"; } catch { return false; } };
 
 export default function DonateBar() {
   const path = usePathname() ?? "";
@@ -18,14 +21,22 @@ export default function DonateBar() {
   const nowDate = useNow();
   const now = nowDate ? nowDate.getTime() : 0;
 
+  const onEmergency = EMERGENCY.some((e) => path.startsWith(e));
+  // Once someone starts an emergency, stay quiet on every screen until they are back on Home.
+  useEffect(() => {
+    try {
+      if (onEmergency) sessionStorage.setItem(FLAG, "1");
+      else if (path === "/home") sessionStorage.removeItem(FLAG);
+    } catch {}
+  }, [onEmergency, path]);
   useEffect(() => {
     const t = setInterval(() => setI((x) => x + 1), 7000);
     return () => clearInterval(t);
   }, []);
 
-  if (!ready || !now || inFocus(path) || !state.prefs.cases) return null;
-  const visible = CASES.filter((c) => !state.dismissed[c.id] || now - state.dismissed[c.id] > DAY);
-  if (visible.length === 0) return null;
+  if (!ready || !now || inFocus(path) || onEmergency || (path !== "/home" && flagged()) || !state.prefs.cases) return null;
+  if (state.dismissed.bar && now - state.dismissed.bar < DAY) return null;
+  const visible = CASES;
   const c = visible[i % visible.length];
   const raised = c.raised + (state.raised[c.id] ?? 0);
   const left = Math.max(c.goal - raised, 0);
@@ -44,7 +55,7 @@ export default function DonateBar() {
             </div>
           </button>
           <button className="btn primary sm" onClick={() => setOpenId(c.id)}>Give</button>
-          <button className="x" aria-label="Hide for 24 hours" onClick={() => update((s) => ({ ...s, dismissed: { ...s.dismissed, [c.id]: Date.now() } }))}><Icon name="x" size={18} /></button>
+          <button className="x" aria-label="Hide for 24 hours" onClick={() => update((s) => ({ ...s, dismissed: { ...s.dismissed, bar: Date.now() } }))}><Icon name="x" size={18} /></button>
         </div>
       </div>
       {openId && <CaseSheet item={CASES.find((x) => x.id === openId) ?? c} onClose={() => setOpenId(null)} />}
